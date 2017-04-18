@@ -15,5 +15,6 @@ pipelines:
           - parallel-lint --exclude vendor .
           # check all packages can be installed
           - cp .env.example .env
+          # Build our artifact
           - ./env/deploy/deploy.sh
           # done
