@@ -1,0 +1,8 @@
+image: composer:latest
+
+pipelines:
+  default:
+    - step:
+        script:
+          - composer global require --dev jakub-onderka/php-parallel-lint
+          - parallel-lint --exclude vendor .

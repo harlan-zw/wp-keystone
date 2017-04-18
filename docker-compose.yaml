@@ -1,0 +1,19 @@
+version: '2'
+
+services:
+
+   web:
+    network_mode: "bridge"
+    container_name: boilerplate_web
+    build: ./env/web/
+    restart: always
+    external_links:
+      - proxy
+    environment:
+      - VIRTUAL_HOST=local.boilerplate.com
+      # HTTPS does not currently work with the rpoxy
+      - HTTPS_METHOD=noredirect
+    extra_hosts:
+      - "local.boilerplate.com:127.0.0.1"
+    volumes:
+         - .:/home/wp

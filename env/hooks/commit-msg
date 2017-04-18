@@ -1,0 +1,5 @@
+#!/bin/bash
+
+# Automatically prefix all commits with our branch name
+NAME=$(git branch --no-color | grep '*' | sed 's/* //')
+echo "$NAME"': '$(cat "$1") > "$1"

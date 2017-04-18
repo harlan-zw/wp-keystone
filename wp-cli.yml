@@ -1,0 +1,7 @@
+require:
+  - env/tools/wp-cli/pre-ssh.php
+
+path: web/wp
+
+@local:
+  url: local.boilerplate.com
