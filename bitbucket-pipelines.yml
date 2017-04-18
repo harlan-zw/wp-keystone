@@ -16,3 +16,4 @@ pipelines:
           # check all packages can be installed
           - cp .env.example .env
           - ./env/deploy/deploy.sh
+          # done
