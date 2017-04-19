@@ -8,8 +8,8 @@ pipelines:
           # Setup
           - cp .env.example .env
           # Setup yarn repos
-          - curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
-          - echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+          - curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
+          - echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
           # Install depedencies
           - apt-get update -y -q && apt-get install git curl zip yarn -y -q
           # Install composer
