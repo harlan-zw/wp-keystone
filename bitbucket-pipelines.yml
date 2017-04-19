@@ -11,7 +11,7 @@ pipelines:
           - curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
           - echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
           # Install depedencies
-          - apt-get update -y -q && apt-get install git curl zip yarn -y -q
+          - apt-get update -y -q && apt-get install apt-transport-https git curl zip yarn -y -q
           # Install composer
           - curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
           # Validate all PHP files are using correct syntax for our php version
