@@ -34,6 +34,7 @@ docker-compose up -d
 ```bash
 cp web/.htaccess.sample web/.htaccess
 ```
+8. Setup your hosts file. `127.0.0.1       local.boilerplate.com`
 
 #### **Theme**
 
