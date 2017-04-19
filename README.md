@@ -17,7 +17,7 @@ Before starting the setup make sure you have:
 
 #### **Instructions**
 
-1. Run a search & replace for local.boilerplate.com -> local.your-domain
+1. Run a search & replace for local.boilerplate.com -> local.your-domain. Rename web/certs/ to local.your-domain prefix.
 2. Move your .env.example file to .env. Update database details
 3. Run the build script `./env/deploy/deploy.sh`
 4. Build the docker instance (Run this in **powershell**)
