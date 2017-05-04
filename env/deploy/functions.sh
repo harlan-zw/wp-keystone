@@ -40,7 +40,7 @@ function do_composer_update() {
     WORKING_DIR=$(dirname $1)
     cd $WORKING_DIR
 
-    FLAG="--dev"
+    FLAG="--dev --ignore-platform-reqs"
     if [ "${WP_ENV}" == "production" ];
     then
         FLAG="--no-dev"
