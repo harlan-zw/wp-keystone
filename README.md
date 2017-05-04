@@ -67,7 +67,7 @@ Development
 
 If you setup your ssh credentials in the `wp-cli.yml` file you are able to alias your environments and perform commands on them! Below are a few handy commands.
 
-**Database Migrations**
+### Database Migrations ###
 Copy live data to your local environment
 `wp @live db export - | wp @local db import -`
 
