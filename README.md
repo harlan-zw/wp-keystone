@@ -54,6 +54,12 @@ Running the start command should begin browsersync. This should be used for all 
 
 Currently the project only connects castaway. Ideally in the future this would load in the live database into a separate docker container.
 
+#### **Features**
+
+- no password required for admin login when environment is development
+- mailtrap automatically used when the values are set in .env file
+- svg file fixes 
+
 Development 
 -------------
 
