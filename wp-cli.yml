@@ -5,3 +5,8 @@ path: web/wp
 
 @local:
   url: local.boilerplate.com
+# Sample - Replace with your ssh credentials  
+#@staging:
+#  ssh: ubuntu@ec2-52-62-221-247.ap-southeast-2.compute.amazonaws.com/home/ubuntu/sites/test
+#@live:
+#  ssh: ubuntu@ec2-52-62-221-247.ap-southeast-2.compute.amazonaws.com/home/ubuntu/sites/live
