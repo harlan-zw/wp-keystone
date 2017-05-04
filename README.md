@@ -63,6 +63,15 @@ Currently the project only connects castaway. Ideally in the future this would l
 Development 
 -------------
 
+#### **Using WP-CLI**
+
+If you setup your ssh credentials in the `wp-cli.yml` file you are able to alias your environments and perform commands on them! Below are a few handy commands.
+
+**Database Migrations**
+Copy live data to your local environment
+`wp @live db export - | wp @local db import -`
+
+
 #### **Gotchas**
 
 The built sass files aren't using the minified images.
