@@ -11,20 +11,35 @@ License:      MIT License
 if (is_env_production()) {
     return;
 }
+
+
+$mailtrap_user = env('MAILTRAP_USER');
+$mailtrap_pass = env('MAILTRAP_USER');
+
 /**
  * Make sure that they've been defined
  */
-if(!defined('MAILTRAP_USER') || !defined('MAILTRAP_USER')) {
-	return;
+if(empty($mailtrap_user) || empty($mailtrap_pass)) {
+    return;
 }
+
 /**
  * Register our mailtrap override
  */
-add_action( 'phpmailer_init', function( PHPMailer $phpmailer ) {
+add_action( 'phpmailer_init', function( PHPMailer $phpmailer ) use($mailtrap_user, $mailtrap_pass) {
+
     $phpmailer->Host = 'smtp.mailtrap.io';
     $phpmailer->Port = 2525; // could be different
-    $phpmailer->Username = env('MAILTRAP_USER'); // if required
-    $phpmailer->Password = env('MAILTRAP_PASS'); // if required
+    $phpmailer->Username = $mailtrap_user; // if required
+    $phpmailer->Password = $mailtrap_pass; // if required
     $phpmailer->SMTPAuth = true; // if required
     $phpmailer->IsSMTP();
+
 }, PHP_INT_MAX);
+
+/**
+ * In the event of an email failing - we dump the error
+ */
+add_action('wp_mail_failed', function($error) {
+    pd('Email failed', $error);
+});
