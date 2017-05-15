@@ -32,7 +32,6 @@ add_action( 'phpmailer_init', function( PHPMailer $phpmailer ) {
     $phpmailer->Password = $mailtrap_pass; // if required
     $phpmailer->SMTPAuth = true; // if required
     $phpmailer->IsSMTP();
-    dd($mailtrap_user, $mailtrap_pass);
 
 }, PHP_INT_MAX);
 
@@ -40,5 +39,5 @@ add_action( 'phpmailer_init', function( PHPMailer $phpmailer ) {
  * In the event of an email failing - we dump the error
  */
 add_action('wp_mail_failed', function($error) {
-    pd('Email failed', $error);
+    dd('Email failed', $error);
 });
