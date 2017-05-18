@@ -31,6 +31,30 @@ class FixMyWP {
         }, 11);
     }
 
+ /**
+     * WordPress will try and be cool by modifying output, fixing new lines into paragraph tags, etc.
+     * This breaks our styling sometimes we so need to disable it. This in particular breaks one of the
+     * gravity forms fields by wrapping the span tags in p tags..
+     */
+    public static function fix_gravityforms_output() {
+        add_filter('pre_do_shortcode_tag', function($unused, $tag) {
+            if ($tag != 'gravityform') {
+                return false;
+            }
+            remove_filter( 'the_content', 'wptexturize');
+            remove_filter( 'the_content', 'wpautop');
+            return false;
+        }, 10, 2);
+
+        add_filter('do_shortcode_tag', function($output, $tag) {
+            if ($tag != 'gravityform') {
+                return $output;
+            }
+            add_filter( 'the_content', 'wptexturize');
+            add_filter( 'the_content', 'wpautop');
+            return $output;
+        }, 10, 2);
+    }
 
 // Call Googles HTML5 Shim, but only for users on old versions of IE
     public static  function IEhtml5_shim () {
