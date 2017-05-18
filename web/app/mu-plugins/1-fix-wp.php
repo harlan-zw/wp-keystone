@@ -45,15 +45,6 @@ class FixMyWP {
             remove_filter( 'the_content', 'wpautop');
             return false;
         }, 10, 2);
-
-        add_filter('do_shortcode_tag', function($output, $tag) {
-            if ($tag != 'gravityform') {
-                return $output;
-            }
-            add_filter( 'the_content', 'wptexturize');
-            add_filter( 'the_content', 'wpautop');
-            return $output;
-        }, 10, 2);
     }
 
 // Call Googles HTML5 Shim, but only for users on old versions of IE
@@ -156,3 +147,4 @@ FixMyWP::clean_head();
 FixMyWP::force_footer_scripts();
 FixMyWP::force_oembed_width();
 FixMyWP::remove_wp_version();
+FixMyWP::fix_gravityforms_output();
