@@ -18,16 +18,20 @@ class FixMyWP {
         });
     }
 
-// Call the google CDN version of jQuery for the frontend
-// Make sure you use this with wp_enqueue_script('jquery'); in your header
+    /**
+     * Replaces the WordPress jQuery version with the latest + the migration dependency.
+     */
     public static  function jquery_enqueue() {
-        add_action("wp_enqueue_scripts", function() {
+        add_action('wp_enqueue_scripts', function() {
             if(is_admin() || is_login_page()) {
                 return;
             }
             wp_deregister_script('jquery');
-            wp_register_script('jquery', "http" . ($_SERVER['SERVER_PORT'] == 443 ? "s" : "") . "://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js", false, null, true);
+            $min = is_env_dev() ? '' : '.min';
+            wp_register_script('jquery', '//code.jquery.com/jquery-3.2.1.' . $min . '.js', false, null, true);
+            wp_register_script('jquery-migrate', '//code.jquery.com/jquery-migrate-3.0.0.' . $min . '.js', false, null, true);
             wp_enqueue_script('jquery');
+            wp_enqueue_script('jquery-migrate');
         }, 11);
     }
 
