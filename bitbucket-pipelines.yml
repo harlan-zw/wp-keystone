@@ -14,6 +14,9 @@ pipelines:
           - apt-get update -y -q && apt-get install git curl zip yarn -y -q
           # Install composer
           - curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+          # Install updated NodeJS
+          - curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
+          - apt-get install -y nodejs
           # Validate all PHP files are using correct syntax for our php version
           - composer global require --dev jakub-onderka/php-parallel-lint
           - export PATH=~/.composer/vendor/bin:$PATH
