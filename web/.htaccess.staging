@@ -1,8 +1,10 @@
 # Staging Authentication
-#AuthType Basic
-#AuthName "Restricted Content"
-#AuthUserFile /home/stggracerebuild/.htpasswd
-#Require valid-user
+AuthType Basic
+AuthName "Restricted Content"
+AuthUserFile /var/www/html/.htpasswd
+## Do not force Auth on /health/. This is for ElasticBeanstalk health monitor
+Require expr %{REQUEST_URI} =~ m#^/health/#
+Require valid-user
 
 # BEGIN WordPress
 <IfModule mod_rewrite.c>
@@ -14,6 +16,11 @@
     RewriteRule . /index.php [L]
 </IfModule>
 # END WordPress
+
+# MOD PHP Directives
+# If using PHP FPM remove these and move them to your FPM pool configuration
+php_value  upload_max_filesize  64M
+php_value  post_max_size        64M
 
 # PHP 7.1 FPM - Socket (Requires Apache 2.4+)
 #<FilesMatch \.php$>
