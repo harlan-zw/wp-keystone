@@ -103,3 +103,21 @@ To utilise all the features in the .htaccess file you must have the following ap
 - mod_mime
 - mod_headers
 - mod_expires
+
+Deployment - ElasticBeanstalk
+-------------
+
+This boilerplate comes equipped with boilerplate configuration files for deployment to ElasticBeanstalk. It leverages 
+BitBucket Pipelines to build the application, package it, upload it to an S3 bucket and then deploy it to ElasticBeanstalk.
+
+By default the `bitbucket-pipelines.yml` file lints and builds the application for testing purposes.
+Replace it with the `bitbucket-pipelines.yml.elastic-beanstalk.sample` file to deploy to ElasticBeanstalk. As specified
+within the file, you need to set the BitBucket Pipelines environment variables for the deployment environment to 
+successfully deploy to your ElasticBeanstalk setup.
+
+There are 2 .env files for use in production and staging ElasticBeanstalk environments
+ - `.env.elastic-beanstalk.production`
+ - `.env.elastic-beanstalk.staging`
+
+The BitBucket Pipelines file will utilise the production .env file master pull requests and the staging .env file
+for release pull requests.
