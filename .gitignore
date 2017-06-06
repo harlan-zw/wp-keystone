@@ -23,6 +23,8 @@ web/.htaccess
 .env
 .env.*
 !.env.example
+!.env.elastic-beanstalk.staging
+!.env.elastic-beanstalk.production
 
 .idea
 # Composer
@@ -44,3 +46,6 @@ wp-cache-config.php
 /readme.html
 /sitemap.xml
 /sitemap.xml.gz
+
+# Exceptions
+!.gitkeep
