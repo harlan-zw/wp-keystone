@@ -8,6 +8,8 @@
 #  `AWS_SECRET_ACCESS_KEY=secretkey`                              - secret key from AWS IAM associated with your API ACCESS KEY
 #  `AWS_DEFAULT_REGION=ap-southeast-2`                            - The region you want to work in (Sydney is ap-southeast-2)
 #  `AWS_S3_BUCKET=elasticbeanstalk-ap-southeast-2-xxxxxxxxxxxx`   - The name of the S3 Bucket to upload the application versions.
+#  `ENVIRONMENT_PRODUCTION=production`                            - The name of the production environment on ElasticBeanstalk
+#  `ENVIRONMENT_STAGING=staging`                                  - The name of the staging environment on ElasticBeanstalk
 ##
 
 # Start with 4mation's base PHP 7.1.0 image
@@ -32,7 +34,7 @@ pipelines:
             ## Build our artifact
             - ./env/deploy/deploy.sh
             ## Zip our artifact and deploy to S3
-            - ./env/deploy/buildDeployableArtifact.sh "production" APPLICATION_NAME AWS_S3_BUCKET
+            - ./env/deploy/buildDeployableArtifact.sh ENVIRONMENT_PRODUCTION APPLICATION_NAME AWS_S3_BUCKET
             ## done
     release-*:
       - step:
@@ -50,5 +52,5 @@ pipelines:
             ## Build our artifact
             - ./env/deploy/deploy.sh
             ## Zip our artifact and deploy to S3
-            - ./env/deploy/buildDeployableArtifact.sh "staging" APPLICATION_NAME AWS_S3_BUCKET
+            - ./env/deploy/buildDeployableArtifact.sh ENVIRONMENT_STAGING APPLICATION_NAME AWS_S3_BUCKET
             ## done
