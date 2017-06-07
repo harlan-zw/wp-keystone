@@ -34,16 +34,16 @@
   ],
   "require": {
     "php": ">=7",
-    "composer/installers": "~1.0.12",
-    "vlucas/phpdotenv": "^2.0.1",
-    "johnpbloch/wordpress": "4.7.3",
-    "oscarotero/env": "^1.0",
-    "roots/wp-password-bcrypt": "1.0.0"
+    "composer/installers": "*",
+    "vlucas/phpdotenv": "*",
+    "johnpbloch/wordpress": "*",
+    "oscarotero/env": "*",
+    "roots/wp-password-bcrypt": "*"
   },
   "require-dev": {
-    "squizlabs/php_codesniffer": "^2.5.1",
-    "wpackagist-plugin/query-monitor": "^2.13.4",
-    "wpackagist-plugin/check-email": "^0.5.2"
+    "squizlabs/php_codesniffer": "*",
+    "wpackagist-plugin/query-monitor": "*",
+    "wpackagist-plugin/check-email": "*"
   },
   "extra": {
     "installer-paths": {
