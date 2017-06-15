@@ -34,7 +34,7 @@ pipelines:
             ## Build our artifact
             - ./env/deploy/deploy.sh
             ## Zip our artifact and deploy to S3
-            - ./env/deploy/buildDeployableArtifact.sh ENVIRONMENT_PRODUCTION APPLICATION_NAME AWS_S3_BUCKET
+            - ./env/deploy/buildDeployableArtifact.sh "$ENVIRONMENT_PRODUCTION" "$APPLICATION_NAME" "$AWS_S3_BUCKET"
             ## done
     release-*:
       - step:
@@ -52,5 +52,5 @@ pipelines:
             ## Build our artifact
             - ./env/deploy/deploy.sh
             ## Zip our artifact and deploy to S3
-            - ./env/deploy/buildDeployableArtifact.sh ENVIRONMENT_STAGING APPLICATION_NAME AWS_S3_BUCKET
+            - ./env/deploy/buildDeployableArtifact.sh "$ENVIRONMENT_STAGING" "$APPLICATION_NAME" "$AWS_S3_BUCKET"
             ## done
