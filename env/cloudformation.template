@@ -1,0 +1,276 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Description": "4mation Careers Site - Master Template",
+  "Parameters": {
+    "KeyName": {
+      "Description" : "Choose a Key Pair that is available in this region",
+      "Type": "AWS::EC2::KeyPair::KeyName",
+      "ConstraintDescription": "Must be the name of an existing EC2 Key Pair"
+    },
+    "WebserverInstanceType": {
+      "Description" : "Choose an instance type",
+      "Type": "String",
+      "ConstraintDescription": "Must be in the list of allowed instance types",
+      "Default" : "t2.micro",
+      "AllowedValues": [ "t2.micro","t2.nano","t2.small","t2.medium","t2.large" ]
+    },
+    "DBServerInstanceType": {
+      "Description" : "Choose an instance type",
+      "Type": "String",
+      "ConstraintDescription": "Must be in the list of allowed instance types",
+      "Default" : "db.t1.micro",
+      "AllowedValues": [ "db.t1.micro","db.m1.small","db.m1.medium","db.m1.large","db.m1.xlarge","db.m2.xlarge","db.m2.2xlarge","db.m2.4xlarge","db.m3.medium","db.m3.large","db.m3.xlarge","db.m3.2xlarge","db.m4.large","db.m4.xlarge","db.m4.2xlarge","db.m4.4xlarge","db.m4.10xlarge","db.r3.large","db.r3.xlarge","db.r3.2xlarge","db.r3.4xlarge","db.r3.8xlarge","db.t2.micro","db.t2.small","db.t2.medium","db.t2.large" ]
+    },
+    "EnvironmentType": {
+      "Description" : "Environtment Variable: Environment Type",
+      "Type": "String",
+      "MinLength": "1",
+      "ConstraintDescription": "Environment Type Must not be empty",
+      "Default" : "DEV"
+    },
+    "AccessKeyId" : {
+      "Description" : "AWS Access Key Id",
+      "Type": "String",
+      "Default": ""
+    },
+    "SecretKeyId" : {
+      "Description" : "AWS secret key",
+      "Type": "String",
+      "Default": ""
+    },
+    "DefaultRegion" : {
+      "Description" : "AWS region",
+      "Type": "String",
+      "Default": "ap-southeast-2"
+    },
+    "S3BucketName" : {
+      "Description" : "A name for the bucket.",
+      "Type": "String",
+      "Default": "4m-careers-site-staging"
+    },
+    "DBPort" : {
+      "Description" : "Mysql Port",
+      "Type": "String",
+      "Default": "3306"
+    },
+    "DBName" : {
+      "Description" : "Database name",
+      "Type": "String",
+      "Default": "careers_site",
+      "MinLength": "1",
+      "ConstraintDescription": "Database name must not be emtpy"
+    },
+    "DBUser" : {
+      "Description" : "Database Root username",
+      "Type": "String",
+      "Default": "root",
+      "MinLength": "3",
+      "MaxLength": "18",
+      "ConstraintDescription": "Root username must not be emtpy"
+    },
+    "DBPassword" : {
+      "Description" : "Database Root password",
+      "Type": "String",
+      "Default": "rootpassword",
+      "MinLength": "8",
+      "ConstraintDescription": "Root password must not be emtpy"
+    },
+    "SSHLocation": {
+      "Description" : "Define a Cidr I.P. range for SSH on the webserver",
+      "Type": "String",
+      "MinLength": "8",
+      "MaxLength": "18",
+      "Default": "0.0.0.0/0",
+      "AllowedPattern": "(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})/(\\d{1,2})",
+      "ConstraintDescription": "Must be in the a valid Cidr block e.g. 0.0.0.0/0"
+    }
+  },
+  "Mappings": {
+    "AWSInstanceType2Arch": {
+      "t2.nano": { "Arch": "HVM64" },
+      "t2.micro": { "Arch": "HVM64" }
+    },
+    "AWSRegionArch2AMI": {
+      "us-east-1": {
+        "PV64": "ami-668f1e70",
+        "HVM64": "ami-c58c1dd3"
+      }
+    }
+  },
+  "Resources": {
+    "EBSecurityGroup": {
+      "Type": "AWS::EC2::SecurityGroup",
+      "Description": "Web Security Group",
+      "Properties": {
+        "GroupName" : "EBSecurityGroup",
+        "GroupDescription": "Enable HTTP and SSH",
+        "SecurityGroupIngress": [
+          {
+            "IpProtocol": "tcp",
+            "FromPort" : "80",
+            "ToPort": "80",
+            "CidrIp": "0.0.0.0/0"
+          },
+          {
+            "IpProtocol": "tcp",
+            "FromPort" : "443",
+            "ToPort": "443",
+            "CidrIp": "0.0.0.0/0"
+          },
+          {
+            "IpProtocol": "tcp",
+            "FromPort" : "22",
+            "ToPort": "22",
+            "CidrIp": { "Ref" : "SSHLocation" }
+          }
+        ]
+      }
+    },
+    "DatabaseSecurityGroup": {
+      "Type": "AWS::EC2::SecurityGroup",
+      "Description": "DB Security Group",
+      "Properties": {
+        "GroupName" : "DatabaseSecurityGroup",
+        "GroupDescription": "Enable DB Connections",
+        "SecurityGroupIngress": [
+          {
+            "IpProtocol": "tcp",
+            "FromPort" : { "Ref" : "DBPort" },
+            "ToPort": { "Ref" : "DBPort" },
+            "CidrIp": { "Ref" : "SSHLocation" }
+          },
+          {
+            "IpProtocol": "tcp",
+            "FromPort" : { "Ref" : "DBPort" },
+            "ToPort": { "Ref" : "DBPort" },
+            "SourceSecurityGroupId": { "Fn::GetAtt": [ "EBSecurityGroup", "GroupId" ] }
+          }
+        ]
+      }
+    },
+    "4mCareersDB": {
+      "Type": "AWS::CloudFormation::Stack",
+      "Properties": {
+        "TemplateURL": "https://s3-ap-southeast-2.amazonaws.com/4m-cloudformation-templates/RDSMysql.v2.template",
+        "Parameters": {
+            "VPCSecurityGroups":  { "Fn::GetAtt": [ "DatabaseSecurityGroup", "GroupId" ] },
+            "DBPassword" : {"Ref": "DBPassword"},
+            "DBUser" : {"Ref": "DBUser"},
+            "DBPort" : {"Ref": "DBPort"},
+            "DBName" : {"Ref": "DBName"},
+            "DBServerInstanceType" : {"Ref": "DBServerInstanceType"}
+        }
+      }
+    },
+    "4mCareersS3Bucket": {
+      "Type": "AWS::CloudFormation::Stack",
+      "Properties": {
+        "TemplateURL": "https://s3-ap-southeast-2.amazonaws.com/4m-cloudformation-templates/S3Bucket.template",
+        "Parameters": {
+          "BucketName":  { "Ref": "S3BucketName" }
+        }
+      }
+    },
+    "4mCareersEBApplication": {
+       "Type" : "AWS::ElasticBeanstalk::Application",
+       "Properties" : {
+          "ApplicationName" : "4mation Careers",
+          "Description" : "Elastic Beanstalk Environment for the 4mation Careers Site"
+       }
+    },
+    "4mCareersEBVersion" :{
+      "Type" : "AWS::ElasticBeanstalk::ApplicationVersion",
+      "Properties" : {
+        "ApplicationName" : {"Ref" : "4mCareersEBApplication"},
+        "Description" : "0.0.1",
+        "SourceBundle" : {
+          "S3Bucket" : { "Fn::Join" :
+            ["-", [ "elasticbeanstalk-samples", { "Ref" : "AWS::Region" } ] ] },
+          "S3Key" : "php-sample.zip"
+        }
+      }
+    },
+    "4mCareersEBConfigTemplate" : {
+      "Type" : "AWS::ElasticBeanstalk::ConfigurationTemplate",
+      "DependsOn" : "EBSecurityGroup",
+      "Properties" : {
+        "ApplicationName" : {"Ref" : "4mCareersEBApplication"},
+        "Description" : "4mation Careers configuration template",
+        "SolutionStackName" : "64bit Amazon Linux 2017.03 v2.4.0 running PHP 7.0",
+        "OptionSettings" : [
+            {
+              "Namespace" : "aws:autoscaling:launchconfiguration",
+              "OptionName" : "EC2KeyName",
+              "Value" : { "Ref" : "KeyName" }
+            },
+            {
+              "Namespace" : "aws:autoscaling:launchconfiguration",
+              "OptionName" : "SecurityGroups",
+              "Value" : "EBSecurityGroup"
+            },
+            {
+              "Namespace": "aws:elasticbeanstalk:application:environment",
+              "OptionName": "ENVIRONMENT_TYPE",
+              "Value": { "Ref" : "EnvironmentType" }
+            },
+            {
+              "Namespace": "aws:elasticbeanstalk:application:environment",
+              "OptionName": "DB_USER",
+              "Value": { "Ref" : "DBUser" }
+            },
+            {
+              "Namespace": "aws:elasticbeanstalk:application:environment",
+              "OptionName": "DB_PASSWORD",
+              "Value": { "Ref" : "DBPassword" }
+            },
+            {
+              "Namespace": "aws:elasticbeanstalk:application:environment",
+              "OptionName": "DB_HOST",
+              "Value": { "Fn::GetAtt": ["4mCareersDB", "Outputs.EndpointAddress"] }
+            },
+            {
+              "Namespace": "aws:elasticbeanstalk:application:environment",
+              "OptionName": "DB_PORT",
+              "Value": { "Ref": "DBPort" }
+            },
+            {
+              "Namespace": "aws:elasticbeanstalk:application:environment",
+              "OptionName": "S3_BUCKET_ENDPOINT",
+              "Value": { "Fn::GetAtt": ["4mCareersS3Bucket", "Outputs.DomainName"] }
+            },
+            {
+              "Namespace": "aws:elasticbeanstalk:application:environment",
+              "OptionName": "S3_BUCKET_NAME",
+              "Value": { "Ref": "S3BucketName" }
+            },
+            {
+              "Namespace": "aws:elasticbeanstalk:application:environment",
+              "OptionName": "AWS_ACCESS_KEY_ID",
+              "Value": { "Ref": "AccessKeyId" }
+            },
+            {
+              "Namespace": "aws:elasticbeanstalk:application:environment",
+              "OptionName": "AWS_SECRET_ACCESS_KEY",
+              "Value": { "Ref": "SecretKeyId" }
+            },
+            {
+              "Namespace": "aws:elasticbeanstalk:application:environment",
+              "OptionName": "AWS_DEFAULT_REGION",
+              "Value": { "Ref": "DefaultRegion" }
+            }
+        ]
+      }
+    },
+    "4mCareersEBEnvironment": {
+       "Type" : "AWS::ElasticBeanstalk::Environment",
+       "Properties" : {
+          "ApplicationName" : "4mation Careers",
+          "CNAMEPrefix" : "4m-careers",
+          "Description" :  "Elastic Beanstalk Environment for the 4mation Careers Site",
+          "EnvironmentName" :  "development",
+          "TemplateName" : {"Ref" : "4mCareersEBConfigTemplate"},
+          "VersionLabel" : {"Ref" : "4mCareersEBVersion"}
+       }
+    }
+  }
+}
