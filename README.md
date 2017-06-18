@@ -36,6 +36,8 @@ cp web/.htaccess.sample web/.htaccess
 ```
 8. Setup your hosts file. `127.0.0.1       local.boilerplate.com`
 
+9. Update this read me. Remove step 1 and tailor to your project. 
+
 #### **Theme**
 
 The project uses the theme [Sage](https://roots.io/sage/). For all usage documentation you should check on the themes README.md file. 
