@@ -27,15 +27,13 @@ docker-compose build
 5.  Run your docker container
 ```bash
 docker-compose up -d
-``` 
+```
 6. Copy the contents of the hooks folder to .git/hooks. This will automatically run all build tools when you do a pull.
-
 7. Copy  web/.htaccess.sample to web/.htaccess
 ```bash
 cp web/.htaccess.sample web/.htaccess
 ```
 8. Setup your hosts file. `127.0.0.1       local.boilerplate.com`
-
 9. Update this read me. Remove step 1 and tailor to your project. 
 
 #### **Theme**
