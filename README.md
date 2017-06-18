@@ -20,19 +20,10 @@ Before starting the setup make sure you have:
 1. Run a search & replace for local.boilerplate.com -> local.your-domain. Rename web/certs/ to local.your-domain prefix.
 2. Move your .env.example file to .env. Update database details
 3. Run the build script `./env/deploy/deploy.sh`
-4. Build the docker instance (Run this in **powershell**)
-```bash
-docker-compose build
-```
-5.  Run your docker container
-```bash
-docker-compose up -d
-```
+4. Build the docker instance (Run this in **powershell**) `docker-compose build`
+5.  Run your docker container `docker-compose up -d`
 6. Copy the contents of the hooks folder to .git/hooks. This will automatically run all build tools when you do a pull.
-7. Copy  web/.htaccess.sample to web/.htaccess
-```bash
-cp web/.htaccess.sample web/.htaccess
-```
+7. Copy  web/.htaccess.sample to web/.htaccess `cp web/.htaccess.sample web/.htaccess`
 8. Setup your hosts file. `127.0.0.1       local.boilerplate.com`
 9. Update this read me. Remove step 1 and tailor to your project. 
 
