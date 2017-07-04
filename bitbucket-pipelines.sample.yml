@@ -1,7 +1,30 @@
 # Same branch as our docker
 image: php:7.1.0-apache
+# image: 4mation/base-php-7.1.0
 
 pipelines:
+
+  branches:
+    # This is for pipelines - remove if not needed
+
+    master:
+      - step:
+          script:
+            ## Build our artifact
+            - ./env/deploy/deploy.sh
+            ## Zip our artifact and deploy to S3
+            - ./env/deploy/build-deployable-artifact.sh "$ENVIRONMENT_PRODUCTION" "$APPLICATION_NAME" "$AWS_S3_BUCKET"
+            ## done
+    # This is for pipelines - remove if not needed
+    release-*:
+      - step:
+          script:
+            ## Build our artifact
+            - ./env/deploy/deploy.sh
+            ## Zip our artifact and deploy to S3
+            - ./env/deploy/build-deployable-artifact.sh "$ENVIRONMENT_STAGING" "$APPLICATION_NAME" "$AWS_S3_BUCKET"
+            ## done
+
   default:
     - step:
         script:

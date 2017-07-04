@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Usage: buildDeployableArtifact.sh "production" "boilerplate" "elasticbeanstalk-ap-southeast-2-xxxxxxxxxxxx"
+# Usage: build-deployable-artifact.sh "production" "boilerplate" "elasticbeanstalk-ap-southeast-2-xxxxxxxxxxxx"
 
 ENVIRONMENT=$1
 APPLICATION_NAME=$2
