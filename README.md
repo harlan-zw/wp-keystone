@@ -84,16 +84,6 @@ Run the following command
 bash vendor/manovotny/wptest/wptest-cli-install.sh
 ```
 
-#### **Apache Requirements**
-
-To utilise all the features in the .htaccess file you must have the following apache modules enabled:
-- mod_rewrite
-- mod_deflate
-- mod_setenvif
-- mod_filter
-- mod_mime
-- mod_headers
-- mod_expires
 
 Deployment - ElasticBeanstalk
 -------------
