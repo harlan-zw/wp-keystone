@@ -13,7 +13,7 @@ pipelines:
             ## Build our artifact
             - ./env/deploy/deploy.sh
             ## Zip our artifact and deploy to S3
-            - ./env/deploy/build-deployable-artifact.sh "$ENVIRONMENT_PRODUCTION" "$APPLICATION_NAME" "$AWS_S3_BUCKET"
+            - ./env/deploy/build-deployable-artifact.sh "production"
             ## done
     # This is for pipelines - remove if not needed
     release-*:
@@ -22,7 +22,7 @@ pipelines:
             ## Build our artifact
             - ./env/deploy/deploy.sh
             ## Zip our artifact and deploy to S3
-            - ./env/deploy/build-deployable-artifact.sh "$ENVIRONMENT_STAGING" "$APPLICATION_NAME" "$AWS_S3_BUCKET"
+            - ./env/deploy/build-deployable-artifact.sh "staging"
             ## done
 
   default:
