@@ -1,7 +1,8 @@
 Wordpress Boilerplate 
 ===================
 
-This is the repo for the Wordpress Boilerplate project. This project leverages Wordpress, Bedrock, Yarn and Sage. 
+This is the repo for the Wordpress Boilerplate project. This project boilerplate was built using bedrock as a guideline. 
+It comes packaged with numerous handy plugins to make life easier. 
 
 Setup
 -------------
@@ -17,39 +18,24 @@ Before starting the setup make sure you have:
 
 #### **Instructions**
 
-1. Run a search & replace for local.boilerplate.com -> local.your-domain. Rename web/certs/ to local.your-domain prefix.
-2. Move your .env.example file to .env. Update database details
+1. Run a search & replace for local.boilerplate.com -> local.your-domain
+2. Move your .env.example file to .env. The existing database credentials are for Tardis so you may want to create a database here.
 3. Run the build script `./env/deploy/deploy.sh`
 4. Build the docker instance (Run this in **powershell**) `docker-compose build`
-5.  Run your docker container `docker-compose up -d`
+5. Run your docker container `docker-compose up -d`
 6. Copy the contents of the hooks folder to .git/hooks. This will automatically run all build tools when you do a pull.
 7. Copy  web/.htaccess.sample to web/.htaccess `cp web/.htaccess.sample web/.htaccess`
 8. Setup your hosts file. `127.0.0.1       local.boilerplate.com`
 9. Update this read me. Remove step 1 and tailor to your project. 
+10. Add a theme. We recommend using [Sage](https://roots.io/sage/)
 
-#### **Theme**
+#### **Packaged Plugins**
 
-The project uses the theme [Sage](https://roots.io/sage/). For all usage documentation you should check on the themes README.md file. 
-
-Folder is `web/app/themes/sage/`
-
-For the page to render you'll want to run the following commands in the theme folder.
-```bash
-yarn run build # Compile and optimize the files in your assets directory
-yarn run start # Compiles when files change
-``` 
-
-Running the start command should begin browsersync. This should be used for all frontend development. The URL should be `http://local.boilerplate.com:3000/`
-
-#### **Database**
-
-Currently the project only connects castaway. Ideally in the future this would load in the live database into a separate docker container.
-
-#### **Features**
-
-- no password required for admin login when environment is development
-- mailtrap automatically used when the values are set in .env file
-- svg file fixes 
+- Easy Development Environment - no password required for admin login when environment is development
+- Mailtrap - mailtrap automatically used when the values are set in .env file
+- Whoops Errors - whoops error handling for staging & development
+- Bottom Admin Bar - admin bar at bottom of screen
+- Fix WP - Fixes common wordpress issues 
 
 Development 
 -------------
@@ -63,13 +49,6 @@ Copy live data to your local environment
 `wp @live db export - | wp @local db import -`
 
 
-#### **Gotchas**
-
-The built sass files aren't using the minified images.
-
-- This is because you need to use the correct syntax for it to properly be picked up by the build tools.
-  You should explicitly reference the entire url and source like `url($img-dir + '/my-image.png')`. 
- 
 #### **Ideals**
 
  - All vendor plugins should be included via composer. For finding plugins check out the [wpackagist](https://wpackagist.org/)
@@ -83,7 +62,6 @@ Run the following command
 ```bash
 bash vendor/manovotny/wptest/wptest-cli-install.sh
 ```
-
 
 Deployment - ElasticBeanstalk
 -------------

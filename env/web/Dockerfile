@@ -47,8 +47,8 @@ COPY conf/.htaccess /home/wp/web/
 RUN chown -R www-data:www-data /home/wp/
 
 # Add Certs
-ADD certs/local.boilerplate.com.cert /etc/httpd/ssl/local.boilerplate.com.cert
-ADD certs/local.boilerplate.com.key /etc/httpd/ssl/local.boilerplate.com.key
+ADD certs/ssl.cert /etc/httpd/ssl/ssl.cert
+ADD certs/ssl.key /etc/httpd/ssl/ssl.key
 
 # This makes sure everyhting we did is within this folder
 VOLUME /home/wp/
