@@ -8,7 +8,9 @@
     }
   ],
   "config": {
-    "preferred-install": "dist"
+    "preferred-install": "dist",
+    "sort-packages": true,
+    "optimize-autoloader": true
   },
   "repositories": [
     {
@@ -38,7 +40,12 @@
     "vlucas/phpdotenv": "*",
     "johnpbloch/wordpress": "*",
     "oscarotero/env": "*",
-    "roots/wp-password-bcrypt": "*"
+    "roots/wp-password-bcrypt": "*",
+
+    "illuminate/view": "^5.4.19",
+    "illuminate/config": "^5.4.19",
+    "symfony/var-dumper": "^3.3.5",
+    "filp/whoops": "^2.1.9"
   },
   "require-dev": {
     "squizlabs/php_codesniffer": "*",
