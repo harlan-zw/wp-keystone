@@ -7,6 +7,11 @@ Version: 1.3
 Author: harlan
 */
 
+// only frontend
+if (is_admin()) {
+    return;
+}
+
 add_filter('script_loader_tag', function($tag) {
     // if they already have async or defer, then ignore
     if (str_contains($tag,'async') || str_contains($tag,'defer')) {
