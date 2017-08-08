@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-#!/bin/bash
-
 SUCCESS_C='\e[0;32m' #green
 ERROR_C='\e[0;31m' #red
 INFO_C='\e[0;35m' #purple
@@ -120,4 +118,19 @@ function check_yarn_install() {
        echo -e "${ERROR_C} Command yarn isn't available.${NC}"
     }
     echo -e "${SUCCESS_C}Found Yarn - Checking for package.json changes${NC}"
+}
+
+function clear_caches() {
+  wp cache flush
+  wp total-cache flush all
+
+  # clear the blade cache
+  rm -rf web/app/uploads/cache
+}
+
+function push_dist_files() {
+    if [ "${WP_ENV}" != "development" ];
+    then
+        wp s3 push-dist
+    fi
 }

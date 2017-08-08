@@ -51,6 +51,9 @@ find $THEMES_FOLDER -maxdepth 2 -name $YARN_CONFIG |while read fname; do
   do_yarn_build "$fname"
 done
 
+# clear caches - avoid problems
+clear_caches
+
 echo -e ""
 
 echo -e "${SUCCESS_C}Application deployment completed${NC}\n"
