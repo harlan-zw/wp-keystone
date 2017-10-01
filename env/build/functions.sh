@@ -71,7 +71,7 @@ function do_yarn_update() {
 
     # update yarn dependencies
     echo -ne "${INFO_C}  Updating Yarn Packages [$1 ]...${NC}\n"
-    yarn --ignore-optional
+    yarn --ignore-engines
 
     cd $OLD_DIR
 }
@@ -91,7 +91,7 @@ function do_yarn_build() {
 
     # build stuff
     echo -ne "${INFO_C}  Building Yarn [$1 $FLAG]...${NC}\n"
-    yarn run build"$FLAG" --ignore-optional
+    yarn run build"$FLAG"
 
     cd $OLD_DIR
 }
@@ -121,11 +121,16 @@ function check_yarn_install() {
 }
 
 function clear_caches() {
-  wp cache flush
-  wp total-cache flush all
+  wp cache flush --allow-root
+#  wp total-cache flush all
+# w3 total cache
 
   # clear the blade cache
   rm -rf web/app/uploads/cache
+}
+
+function run_tests() {
+    ./vendor/bin/behat
 }
 
 function push_dist_files() {

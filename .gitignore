@@ -5,6 +5,7 @@ web/app/mu-plugins/*/
 web/app/upgrade
 web/app/uploads/*
 !web/app/uploads/.gitkeep
+web/app/db.php
 
 # Word Fence logs
 /web/app/wflogs/*
@@ -13,16 +14,25 @@ web/app/uploads/*
 !web/app/plugins/*-4m/
 !web/app/mu-plugins/*-4m/
 
+web/app/mu-plugins/acf-widgets-4m/
+
 # WordPress
 web/wp
 
+web/app/themes/awaba/dist
+
 # htaccess file
 web/.htaccess
+
+
+.cache-loader
+node_modules
 
 # Dotenv
 .env
 .env.*
 !.env.example
+!.env.local
 !.env.elastic-beanstalk.staging
 !.env.elastic-beanstalk.production
 
@@ -47,5 +57,10 @@ wp-cache-config.php
 /sitemap.xml
 /sitemap.xml.gz
 
-# Exceptions
-!.gitkeep
+
+/logs/
+!/web/
+!/web/app/
+
+# CSV exports
+/runtime/csv-exports

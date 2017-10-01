@@ -18,16 +18,18 @@ Before starting the setup make sure you have:
 
 #### **Instructions**
 
-1. Run a search & replace for local.boilerplate.com -> local.your-domain
-2. Move your .env.example file to .env. The existing database credentials are for Tardis so you may want to create a database here.
-3. Run the build script `./env/deploy/deploy.sh`
-4. Build the docker instance (Run this in **powershell**) `docker-compose build`
-5. Run your docker container `docker-compose up -d`
-6. Copy the contents of the hooks folder to .git/hooks. This will automatically run all build tools when you do a pull.
-7. Copy  web/.htaccess.sample to web/.htaccess `cp web/.htaccess.sample web/.htaccess`
-8. Setup your hosts file. `127.0.0.1       local.boilerplate.com`
-9. Update this read me. Remove step 1 and tailor to your project. 
-10. Add a theme. We recommend using [Sage](https://roots.io/sage/)
+1. Run our local setup script `./env/docker/setup-local.sh`
+2. Setup your hosts file. `127.0.0.1       local.awaba.com.au`
+
+
+#### **Automated Testing**
+
+Automated tested is setup using behat. To get it working properly you need to run a selenium server which 
+has been supplied in the form of a composer package. For this to work you'll need to copy over
+the drivers. This has to be done outside of docker at the moment. 
+
+1. Run the server `composer selenium`
+2. Run tests `composer test`
 
 #### **Packaged Plugins**
 

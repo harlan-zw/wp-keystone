@@ -19,7 +19,7 @@ source ".env"
 
 ALIASES=$(wp cli alias --format=json)
 
-
+# Here we need to extract the wp-cli.yml constants
 SSH_PATH=$(php -r "
 function replace_first(\$find, \$replace, \$subject) {
     return implode(\$replace, explode(\$find, \$subject, 2));
@@ -27,14 +27,25 @@ function replace_first(\$find, \$replace, \$subject) {
 \$key = '@$1';
 echo replace_first('/', ':/', json_decode('$ALIASES')->\$key->ssh);
 ")
+COPY_URL=$(php -r "
+\$key = '@$1';
+echo json_decode('$ALIASES')->\$key->url;
+")
 
-echo "Using SSH path $SSH_PATH"
+
+echo "Copying over files SCP using SSH path $SSH_PATH"
 
 # Copy over all upload files
 scp -r $SSH_PATH/web/app/uploads web/app
 
-# Copy the database over
-wp @$1 db export - | wp db import -
+# Disable database copying for now
 
+#echo "Copying over database"
 #
-wp search-replace "${LIVE_URL}" "${WP_HOME}"
+## Copy the database over
+#wp @$1 db export - | wp db import -
+#
+#echo "Doing search replace with environment url $COPY_URL"
+#
+##
+#wp search-replace "${COPY_URL}" "${WP_HOME}"

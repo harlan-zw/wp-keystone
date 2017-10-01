@@ -1,12 +1,14 @@
 #!/usr/bin/env bash
 
 
+set -e
+
 # Import our environment variables
 source ".env" #import constants
 
 THEMES_FOLDER="./web/app/themes/"
 # Includes helper functions
-. "env/deploy/functions.sh"
+. "env/build/functions.sh"
 
 echo -e "${INFO_C}Deploying ${WP_HOME} - ${WP_ENV} ${NC}\n"
 
@@ -39,7 +41,7 @@ echo -e ""
 check_yarn_install
 
 # Check the package.json file in the root of our themes folders
-find $THEMES_FOLDER -maxdepth 2 -name $YARN_CONFIG |while read fname; do
+find email $THEMES_FOLDER -maxdepth 2 -name $YARN_CONFIG |while read fname; do
   FOLDER_NAME=$(dirname "${fname}")
   VENDOR_FOLDER="${FOLDER_NAME}/node_modules"
   if is_modified_git "$fname"; then
@@ -50,9 +52,6 @@ find $THEMES_FOLDER -maxdepth 2 -name $YARN_CONFIG |while read fname; do
   fi
   do_yarn_build "$fname"
 done
-
-# clear caches - avoid problems
-clear_caches
 
 echo -e ""
 

@@ -1,49 +1,45 @@
-# Same branch as our docker
-image: php:7.1.0-apache
-# image: 4mation/base-php-7.1.0
+# Start with 4mation's base PHP 7.1.0 image
+image: 4mation/wordpress:v5.3
 
 pipelines:
 
   branches:
-    # This is for pipelines - remove if not needed
-
-    master:
-      - step:
-          script:
-            ## Build our artifact
-            - ./env/deploy/deploy.sh
-            ## Zip our artifact and deploy to S3
-            - ./env/deploy/build-deployable-artifact.sh "production"
-            ## done
-    # This is for pipelines - remove if not needed
     release-*:
       - step:
           script:
-            ## Build our artifact
-            - ./env/deploy/deploy.sh
-            ## Zip our artifact and deploy to S3
-            - ./env/deploy/build-deployable-artifact.sh "staging"
-            ## done
+            # Move code to our working directory
+            - cp -a $BITBUCKET_CLONE_DIR/. /home/wp/code
+            # Fix up SSH keys
+            - cp -a ~/.ssh/. /home/wp/.ssh/ && chown -R wp:wp /home/wp/.ssh && chown wp:wp /opt/atlassian/pipelines/agent/data/id_rsa
+            # Every time we push a commit it will re-setup the entire project
+            - su -c "export WP_ENV=staging; ./env/tools/initial-setup.sh" -s /bin/sh wp
+              ## Zip our artifact and deploy to S3
+            - export ENVIRONMENT=staging; ./env/build/build-artifact.sh
 
-  default:
-    - step:
-        script:
-          # Setup
-          - cp .env.example .env
-          # Setup yarn repos
-          - curl -sS http://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
-          - echo "deb http://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
-          # Install depedencies
-          - apt-get update -y -q && apt-get install git curl zip yarn -y -q
-          # Install composer
-          - curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-          # Install updated NodeJS
-          - curl -sL https://deb.nodesource.com/setup_6.x | bash -
-          - apt-get install -y nodejs
-          # Validate all PHP files are using correct syntax for our php version
-          - composer global require --dev jakub-onderka/php-parallel-lint
-          - export PATH=~/.composer/vendor/bin:$PATH
-          - parallel-lint --exclude vendor .
-          # Build our artifact
-          - ./env/deploy/deploy.sh
-          # done
+          # cache our dependencies to speed up build time
+          caches:
+            - composer
+            - node
+            # we need our database to run selenium tests @todo get these working
+          services:
+            - database
+
+    master:
+        - step:
+            script:
+              ## Zip our artifact and deploy to S3
+              - ./env/deploy/build-artifact.sh "production"
+
+            # we need our database to run selenium tests
+            services:
+              - database
+
+
+definitions:
+  services:
+    # we setup a database to spin up our wordpress
+    database:
+      image: mysql
+      environment:
+        MYSQL_DATABASE: 'awaba'
+        MYSQL_ROOT_PASSWORD: 'awaba'

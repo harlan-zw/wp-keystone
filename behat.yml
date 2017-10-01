@@ -1,0 +1,58 @@
+default:
+
+
+  suites:
+    default:
+
+      contexts:
+        - App\Tests\ThemeContext
+        - App\Tests\UtilityContext
+        - App\Tests\WordpressContext
+        - Behat\MinkExtension\Context\MinkContext
+        - PaulGibbs\WordpressBehatExtension\Context\ContentContext
+        - PaulGibbs\WordpressBehatExtension\Context\DashboardContext
+        - PaulGibbs\WordpressBehatExtension\Context\SiteContext
+        - PaulGibbs\WordpressBehatExtension\Context\UserContext
+        - PaulGibbs\WordpressBehatExtension\Context\WordpressContext
+        - PaulGibbs\WordpressBehatExtension\Context\EditPostContext
+        - PaulGibbs\WordpressBehatExtension\Context\WidgetContext
+
+  gherkin:
+    cache: ~
+
+  extensions:
+    Behat\MinkExtension:
+      base_url: http://local.awaba.com.au
+      browser_name: chrome
+      default_session: default
+      javascript_session: selenium2
+      sessions:
+
+        default:
+          goutte:
+            guzzle_parameters:
+              verify: false
+
+        selenium2:
+          selenium2: ~
+
+        browserstack:
+          browser_stack:
+
+           username: "nathandailo1"
+           access_key: "Xryyyb4p85YJC2SP7uLK"
+           capabilities: { "resolution": "1920x1200", "browser" :"Chrome", "os": "Windows", "os_version": "10", "browserstack-debug": true, "browserstack-tunnel": true }
+
+
+    PaulGibbs\WordpressBehatExtension:
+      default_driver: wpcli
+      path: ./
+
+      wpcli:
+          alias: local
+          binary: wp
+
+      users:
+        admin:
+          username: admin
+          password: admin
