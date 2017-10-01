@@ -113,20 +113,6 @@ class FixMyWP {
 
 }
 
-function dd() {
-    pre_dump(func_get_args());
-    die(1);
-}
-
-function pre_dump() {
-    array_map(function ($x) {
-        echo '<pre style="background-color: white; padding: 0.5em; border: 1px solid #f0f0f0;">';
-        var_dump($x);
-        echo '</pre>';
-        echo '<script> console.log(' . json_encode(print_r($x, true)) . ');</script>';
-    }, func_get_args());
-}
-
 /* utility functions */
 function is_env_dev() {
     return WP_ENV == 'development';
