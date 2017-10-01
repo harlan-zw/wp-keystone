@@ -18,6 +18,9 @@ Before starting the setup make sure you have:
 
 #### **Instructions**
 
+1. Run a search & replace for local.boilerplate.com -> local.your-domain - delete this line after doing
+
+And then 
 1. Run our local setup script `./env/docker/setup-local.sh`
 2. Setup your hosts file. `127.0.0.1       local.awaba.com.au`
 
