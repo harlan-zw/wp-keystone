@@ -41,7 +41,7 @@ echo -e ""
 check_yarn_install
 
 # Check the package.json file in the root of our themes folders
-find email $THEMES_FOLDER -maxdepth 2 -name $YARN_CONFIG |while read fname; do
+find $THEMES_FOLDER -maxdepth 2 -name $YARN_CONFIG |while read fname; do
   FOLDER_NAME=$(dirname "${fname}")
   VENDOR_FOLDER="${FOLDER_NAME}/node_modules"
   if is_modified_git "$fname"; then
