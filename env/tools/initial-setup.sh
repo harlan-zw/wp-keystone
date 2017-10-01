@@ -15,8 +15,6 @@ chmod -R 777 runtime
 
 echo "Building Assets"
 
-su wp
-
 # Then Build all of our assets
 ./env/build/deploy.sh
 

@@ -13,16 +13,16 @@ This project utilizes docker for all its local development.
 
 Before starting the setup make sure you have:
 - [docker](https://www.docker.com/)
-- [docker proxy](https://4mation.atlassian.net/wiki/display/PD/Docker+Proxy)
+- [docker proxy](https://4mation.atlassian.net/wiki/display/PD/Docker+Proxy) `docker run -d --name proxy -p 80:80 -v /var/run/docker.sock:/tmp/docker.sock:ro jwilder/nginx-proxy `
 - [yarn](https://yarnpkg.com/en/) `npm install -g yarn`
 
 #### **Instructions**
 
 1. Run a search & replace for local.boilerplate.com -> local.your-domain - delete this line after doing
 
-And then 
+Local Setup
 1. Run our local setup script `./env/docker/setup-local.sh`
-2. Setup your hosts file. `127.0.0.1       local.awaba.com.au`
+2. Setup your hosts file. `127.0.0.1       local.boilerplate.com`
 
 
 #### **Automated Testing**
