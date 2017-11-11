@@ -12,9 +12,11 @@ cp -n web/.htaccess.sample web/.htaccess # make sure we use a .htaccess
 mkdir -p logs # need a logs directory for apache logs
 mkdir -p runtime/cache
 chmod -R 777 runtime
+chmod -R 777 logs
 
 echo "Building Assets"
 
+docker exec project-slug /home/wp/env/build/deploy.sh
 # Then Build all of our assets
 ./env/build/deploy.sh
 

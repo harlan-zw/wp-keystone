@@ -42,14 +42,8 @@ check_yarn_install
 
 # Check the package.json file in the root of our themes folders
 find $THEMES_FOLDER -maxdepth 2 -name $YARN_CONFIG |while read fname; do
-  FOLDER_NAME=$(dirname "${fname}")
-  VENDOR_FOLDER="${FOLDER_NAME}/node_modules"
-  if is_modified_git "$fname"; then
-    do_yarn_update "$fname"
-  elif [ ! -d "${VENDOR_FOLDER}" ]; then
-     echo -e "${INFO_C}  Missing Node folder!.${NC}"
-     do_yarn_update "$fname"
-  fi
+#  Always run yarn update, in case the machine we're using requires different binaries
+  do_yarn_update "$fname"
   do_yarn_build "$fname"
 done
 

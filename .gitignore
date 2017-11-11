@@ -19,7 +19,7 @@ web/app/mu-plugins/acf-widgets-4m/
 # WordPress
 web/wp
 
-web/app/themes/awaba/dist
+web/app/themes/*/dist
 
 # htaccess file
 web/.htaccess

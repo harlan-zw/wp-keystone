@@ -138,4 +138,4 @@ FixMyWP::clean_head();
 FixMyWP::force_footer_scripts();
 FixMyWP::force_oembed_width();
 FixMyWP::remove_wp_version();
-FixMyWP::fix_gravityforms_output();
+//FixMyWP::fix_gravityforms_output();

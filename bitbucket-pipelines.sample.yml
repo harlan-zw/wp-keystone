@@ -34,12 +34,3 @@ pipelines:
             services:
               - database
 
-
-definitions:
-  services:
-    # we setup a database to spin up our wordpress
-    database:
-      image: mysql
-      environment:
-        MYSQL_DATABASE: 'awaba'
-        MYSQL_ROOT_PASSWORD: 'awaba'

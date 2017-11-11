@@ -9,11 +9,11 @@ path: web/wp
   path: web/wp
 
 #@staging:
-#  ssh: ec2-user@staging-awaba.tmp.4mation.com.au/var/app/current
+#  ssh: ec2-user@staging.tmp.4mation.com.au/var/app/current
 #  url: https://local.boilerplate.com
 #  path: /var/app/current/web/wp
 
 #@live:
-#  ssh: ec2-user@awaba.tmp.4mation.com.au/var/app/current
+#  ssh: ec2-user@prod.tmp.4mation.com.au/var/app/current
 #  url: https://local.boilerplate.com
 #  path: /var/app/current/web/wp

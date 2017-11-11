@@ -76,12 +76,6 @@ define('MAILGUN_APIKEY', env('MAILGUN_APIKEY'));
 define('MAILGUN_DOMAIN', env('MAILGUN_DOMAIN'));
 
 /**
- * Get Five stars
- */
-define('GFS_PRIVATE_KEY', env('GFS_PRIVATE_KEY'));
-define('GFS_CLIENT_ID', env('GFS_CLIENT_ID'));
-
-/**
  * Custom Settings
  */
 define('AUTOMATIC_UPDATER_DISABLED', true);

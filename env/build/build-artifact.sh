@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-APPLICATION_NAME="Awaba"
+APPLICATION_NAME="local.boilerplate.com"
 
 GIT_HASH=$(git log --pretty=format:'%H' -n 1)
 FILENAME="$GIT_HASH.zip"

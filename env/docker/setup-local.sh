@@ -3,10 +3,10 @@
 docker-compose up -d
 
 # Add our SSH key so we can use copy-env script
-docker cp ~/.ssh/ awaba:/home/wp/.ssh/
+docker cp ~/.ssh/ project-slug:/home/wp/.ssh/
 
 cp -n env/.env.local .env # copy over default environment variables
 
 ./env/tools/initial-setup.sh
 
-echo "Awaba is ready to go!"
+echo "local.boilerplate.com is ready to go!"
