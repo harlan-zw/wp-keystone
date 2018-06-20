@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 SUCCESS_C='\e[0;32m' #green
 ERROR_C='\e[0;31m' #red
@@ -39,9 +39,12 @@ function do_composer_update() {
     cd $WORKING_DIR
 
     FLAG="--dev --ignore-platform-reqs"
-    if [ "${WP_ENV}" == "production" ];
+    if [ "${WP_ENV}" == "production" ] || [ "${WP_ENV}" == "uat" ];
     then
-        FLAG="--no-dev"
+        FLAG="--no-dev --no-scripts"
+    elif [ "${WP_ENV}" != "development" ]
+    then
+        FLAG="--no-scripts"
     fi
 
     echo -ne "${INFO_C}  Updating Composer [$1 $FLAG]...${NC}\n" # install composer
@@ -62,8 +65,8 @@ function do_composer_update() {
     cd $OLD_DIR
 }
 
-# Updates yarn dependencies
-function do_yarn_update() {
+# install yarn dependencies / binaries
+function do_yarn_install() {
 
     OLD_DIR=$(pwd)
     WORKING_DIR=$(dirname $1)
@@ -84,7 +87,7 @@ function do_yarn_build() {
     cd $WORKING_DIR
 
     FLAG=""
-    if [ "${WP_ENV}" == "production" ];
+    if [ "${WP_ENV}" == "production" ] || [ "${WP_ENV}" == "uat" ];
     then
         FLAG=":production"
     fi

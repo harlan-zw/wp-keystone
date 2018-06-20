@@ -6,19 +6,19 @@ echo "Building Environment"
 # Firstly do menial copy tasks
 echo "Setting up folders & files"
 
-cp -R env/hooks .git/ # setup hooks
 cp -n env/.env.example .env # copy over default environment variables
 cp -n web/.htaccess.sample web/.htaccess # make sure we use a .htaccess
-mkdir -p logs # need a logs directory for apache logs
 mkdir -p runtime/cache
+mkdir -p runtime/apache
 chmod -R 777 runtime
-chmod -R 777 logs
 
 echo "Building Assets"
 
-docker exec project-slug /home/wp/env/build/deploy.sh
 # Then Build all of our assets
 ./env/build/deploy.sh
+
+# Add in our git hooks
+./vendor/bin/cghooks add --no-lock
 
 echo "Assets Built"
 

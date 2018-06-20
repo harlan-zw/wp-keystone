@@ -71,12 +71,11 @@ RUN curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -; \
 
 RUN echo "cd /home/wp/code" >> /root/.bashrc
 
-# We need to include a new user for our builds
-RUN useradd -ms /bin/bash wp
-RUN usermod -a -G www-data wp
+# We need to set the user id to the same as the mounted volume
+RUN useradd -ms /bin/bash -G www-data wp
 
 ENV NVM_DIR /home/wp/.nvm
-ENV NODE_VERSION 6.0.0
+ENV NODE_VERSION 6.9.4
 
 # Install nvm with node and npm
 RUN curl https://raw.githubusercontent.com/creationix/nvm/v0.33.2/install.sh | bash \
@@ -89,15 +88,11 @@ ENV NODE_PATH $NVM_DIR/v$NODE_VERSION/lib/node_modules
 ENV PATH      $NVM_DIR/v$NODE_VERSION/bin:$PATH
 
 ADD conf/.bashrc /home/wp/.nvmbashrc
+
 RUN cat /home/wp/.nvmbashrc >> /home/wp/.bashrc
 
-RUN mkdir /home/wp/code; \
-    mkdir /home/wp/code/web; \
-    mkdir /home/wp/code/logs; \
-    mkdir /home/wp/.ssh
-
-# Setup our web root
-RUN chown -R www-data:www-data /home/wp/code/
+RUN mkdir -p /home/wp/code/runtime/apache \
+	/home/wp/code/web
 
 # Add Certs
 ADD certs/ssl.cert /etc/httpd/ssl/ssl.cert
@@ -105,6 +100,8 @@ ADD certs/ssl.key /etc/httpd/ssl/ssl.key
 
 # This makes sure everyhting we did is within this folder
 VOLUME /home/wp/code
+
+RUN update-alternatives --set php /usr/bin/php7.1
 
 # Check services are working
 RUN service apache2 restart

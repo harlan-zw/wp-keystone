@@ -1,0 +1,26 @@
+{
+  "entry": {
+    "main": [
+      "./styles/main.scss",
+      "./scripts/main.js"
+    ],
+    "admin": [
+      "./styles/admin.scss",
+      "./scripts/admin.js"
+    ]
+  },
+  "copyDir": "./static/",
+  "distPath": "/web/app/themes/mcgrath/dist",
+  "publicPath": "/app/themes/mcgrath",
+  "devUrl": "http://local.mcgrathfoundation.com.au",
+  "proxyUrl": "http://localhost:3000",
+  "cacheBusting": "[name]_[hash:8]",
+  "watch": [
+    "app/**/*.php",
+    "config/**/*.php",
+    "resources/controllers/**/*.php",
+    "resources/views/**/*.php",
+    "resources/assets/styles/*.scss",
+    "resources/assets/styles/**/*.scss"
+  ]
+}

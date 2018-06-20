@@ -1,7 +1,22 @@
 <?php
 
+/** Allow this application to run behind an SSL proxy */
+if(isset($_SERVER['HTTP_X_FORWARDED_PROTO'])
+    && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https') {
+    $_SERVER['HTTPS'] = 'on';
+    $_SERVER['SERVER_PORT'] = 443;
+}
+
 /** @var string Directory containing all of the site's files */
 $root_dir = dirname(__DIR__);
+define('ROOT_DIR', $root_dir);
+
+define('APP_DIR', ROOT_DIR . '/app');
+
+/**
+ * Directory of where our runtime components are held
+ */
+define('RUNTIME_DIR', ROOT_DIR . '/runtime');
 
 /** @var string Document Root */
 $webroot_dir = $root_dir . '/web';
@@ -24,7 +39,11 @@ if (file_exists($root_dir . '/.env')) {
  * Set up our global environment constant and load its config first
  * Default: production
  */
-define('WP_ENV', env('WP_ENV') ?: 'production');
+if (!empty($_COOKIE) && isset($_COOKIE['X-IS-SELENIUM'])) {
+	define('WP_ENV', 'behat');
+} else {
+	define('WP_ENV', env('WP_ENV') ?: 'production');
+}
 
 $env_config = __DIR__ . '/environments/' . WP_ENV . '.php';
 
@@ -81,6 +100,12 @@ define('MAILGUN_DOMAIN', env('MAILGUN_DOMAIN'));
 define('AUTOMATIC_UPDATER_DISABLED', true);
 define('DISABLE_WP_CRON', env('DISABLE_WP_CRON') ?: false);
 define('DISALLOW_FILE_EDIT', true);
+
+// aws config
+define('AWS_ACCESS_KEY_ID', env('AWS_ACCESS_KEY_ID'));
+define('AWS_SECRET_ACCESS_KEY', env('AWS_SECRET_ACCESS_KEY'));
+// s3 config
+define('AS3CF_BUCKET', 'mcgrath-main-' . WP_ENV);
 
 /**
  * Bootstrap WordPress

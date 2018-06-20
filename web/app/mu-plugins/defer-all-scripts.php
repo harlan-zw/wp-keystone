@@ -7,16 +7,19 @@ Version: 1.3
 Author: harlan
 */
 
-// only frontend
+// only fronte
 if (is_admin()) {
     return;
 }
 
-add_filter('script_loader_tag', function($tag) {
-    // if they already have async or defer, then ignore
-    if (str_contains($tag,'async') || str_contains($tag,'defer')) {
-        return $tag;
+add_filter('script_loader_tag', function($script, $tag) {
+    if ($tag === 'jquery') {
+        return $script;
     }
-    return str_replace(' src', ' defer="defer" src', $tag);
-}, PHP_INT_MAX);
+    // if they already have async or defer, then ignore
+    if (str_contains($script,'async') || str_contains($script,'defer')) {
+        return $script;
+    }
+    return str_replace(' src', ' defer="defer" src', $script);
+}, PHP_INT_MAX, 2);
 

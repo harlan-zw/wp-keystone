@@ -1,0 +1,15 @@
+/**
+ * Anything here will be included within the backend
+ */
+#toplevel_page_mcgrath-settings {
+    .wp-menu-image {
+        height: 20px !important;
+        margin-top: 7px !important;
+        background: url(/favicon.ico) no-repeat center center;
+        background-size: contain !important;
+
+        &::before {
+            display: none;
+        }
+    }
+}

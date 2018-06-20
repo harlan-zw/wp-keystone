@@ -39,5 +39,5 @@ add_action( 'phpmailer_init', function( PHPMailer $phpmailer ) {
  * In the event of an email failing - we dump the error
  */
 add_action('wp_mail_failed', function($error) {
-    dd('Email failed', $error);
+//    dd('Email failed', $error);
 });

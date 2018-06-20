@@ -1,36 +1,55 @@
-# Start with 4mation's base PHP 7.1.0 image
-image: 4mation/wordpress:v5.3
+# Start with our mcgrath docker image
+image: 4mation/wordpress:mcgrath
 
 pipelines:
-
   branches:
-    release-*:
+    master:
       - step:
-          script:
-            # Move code to our working directory
-            - cp -a $BITBUCKET_CLONE_DIR/. /home/wp/code
-            # Fix up SSH keys
-            - cp -a ~/.ssh/. /home/wp/.ssh/ && chown -R wp:wp /home/wp/.ssh && chown wp:wp /opt/atlassian/pipelines/agent/data/id_rsa
-            # Every time we push a commit it will re-setup the entire project
-            - su -c "export WP_ENV=staging; ./env/tools/initial-setup.sh" -s /bin/sh wp
-              ## Zip our artifact and deploy to S3
-            - export ENVIRONMENT=staging; ./env/build/build-artifact.sh
-
-          # cache our dependencies to speed up build time
+          deployment: production
+          name: Build Artifact and Deploy to Production
           caches:
             - composer
+            - yarn
             - node
-            # we need our database to run selenium tests @todo get these working
-          services:
-            - database
+          script:
+            # Move code to our working directory & fix ownerships
+            - cp -a $BITBUCKET_CLONE_DIR/. /home/wp/code && chown -R wp:wp /home/wp/
+            # Build Assets
+            - su -c "export WP_ENV=production; /home/wp/code/env/tools/initial-setup.sh" -s /bin/sh wp
+            # Deploy to ElasticBeanstalk
+            - su -c "export ENVIRONMENT='Production'; /home/wp/code/env/build/build-artifact.sh" -s /bin/sh wp
+    uat-*:
+      - step:
+          deployment: test
+          name: Build Artifact and Deploy to UAT
+          caches:
+            - composer
+            - yarn
+            - node
+          script:
+            # Move code to our working directory & fix ownerships
+            - cp -a $BITBUCKET_CLONE_DIR/. /home/wp/code && chown -R wp:wp /home/wp/
+            # Build Assets
+            - su -c "export WP_ENV=uat; /home/wp/code/env/tools/initial-setup.sh" -s /bin/sh wp
+            # Deploy to ElasticBeanstalk
+            - su -c "export ENVIRONMENT='U-A-T'; /home/wp/code/env/build/build-artifact.sh" -s /bin/sh wp
+    staging-*:
+      - step:
+          deployment: staging
+          name: Build Artifact and Deploy to Staging
+          caches:
+            - composer
+            - yarn
+            - node
+          script:
+            # Move code to our working directory & fix ownerships
+            - cp -a $BITBUCKET_CLONE_DIR/. /home/wp/code && chown -R wp:wp /home/wp/
+            # Build Assets
+            - su -c "export WP_ENV=staging; /home/wp/code/env/tools/initial-setup.sh" -s /bin/sh wp
+            # Deploy to ElasticBeanstalk
+            - su -c "export ENVIRONMENT='Staging'; /home/wp/code/env/build/build-artifact.sh" -s /bin/sh wp
 
-    master:
-        - step:
-            script:
-              ## Zip our artifact and deploy to S3
-              - ./env/deploy/build-artifact.sh "production"
-
-            # we need our database to run selenium tests
-            services:
-              - database
-
+definitions:
+  caches:
+    composer: /home/wp/.composer/cache
+    yarn: /home/wp/.cache/yarn

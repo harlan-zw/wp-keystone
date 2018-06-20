@@ -16,6 +16,8 @@ web/app/db.php
 
 web/app/mu-plugins/acf-widgets-4m/
 
+runtime/*
+
 # WordPress
 web/wp
 
