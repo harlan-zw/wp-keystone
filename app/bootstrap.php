@@ -8,7 +8,7 @@ use Roots\Sage\Container;
 require APP_DIR . '/helpers.php';
 
 
-$preload_files = collect(get_files_recursive(APP_DIR . '/components/', '/\.php$/'));
+$preload_files = collect(get_files_recursive(APP_DIR . '/components', '/\.php$/'));
 
 // We only pre-load our commands if the WP_CLI constant exists
 if (\defined('WP_CLI') && WP_CLI) {
