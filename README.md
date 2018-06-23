@@ -27,10 +27,13 @@ First Run a search & replace for the following:
 Then delete this section from the readme.
 
 #### **Instructions**
-
 Local Setup
-1. Run our local setup script `./env/docker/setup-local.sh`
-2. Setup your hosts file. `sudo sh -c 'echo "127.0.0.1       local.boilerplate.com" >> /etc/hosts'`
+1. Copy over the env file `cp -n env/.env.local .env`
+2. Copy over the htaccess `cp -n web/.htaccess.local web/.htaccess`
+3. Setup docker containers `docker-compose up -d`
+4. Setup your hosts file. `sudo sh -c 'echo "127.0.0.1       local.mcgrathfoundation.com.au" >> /etc/hosts'`
+5. Mount yourself to the workspace `./env/mount-workspace.sh`
+6. Run the deployment script `composer build`
 
 
 Development 
