@@ -5,15 +5,15 @@ require:
 path: web/wp
 
 @local:
-  url: local.boilerplate.com
+  url: local.wp-keystone
   path: web/wp
 
 #@staging:
 #  ssh: ec2-user@staging.tmp.4mation.com.au/var/app/current
-#  url: https://local.boilerplate.com
+#  url: https://local.wp-keystone
 #  path: /var/app/current/web/wp
 
 #@live:
 #  ssh: ec2-user@prod.tmp.4mation.com.au/var/app/current
-#  url: https://local.boilerplate.com
+#  url: https://local.wp-keystone
 #  path: /var/app/current/web/wp

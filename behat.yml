@@ -22,7 +22,7 @@ default:
 
   extensions:
     Behat\MinkExtension:
-      base_url: http://local.boilerplate.com
+      base_url: http://local.wp-keystone
       browser_name: chrome
       default_session: default
       javascript_session: selenium2
@@ -35,13 +35,6 @@ default:
 
         selenium2:
           selenium2: ~
-
-        browserstack:
-          browser_stack:
-
-           username: "nathandailo1"
-           access_key: "Xryyyb4p85YJC2SP7uLK"
-           capabilities: { "resolution": "1920x1200", "browser" :"Chrome", "os": "Windows", "os_version": "10", "browserstack-debug": true, "browserstack-tunnel": true }
 
 
     PaulGibbs\WordpressBehatExtension:

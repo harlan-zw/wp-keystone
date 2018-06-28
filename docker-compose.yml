@@ -94,7 +94,7 @@ services:
 ### Apache Server Container #################################
 
     apache2:
-      domainname: local.boilerplate.com
+      domainname: local.wp-keystone
       build:
         context: ./env/docker/apache2
         args:
@@ -106,7 +106,7 @@ services:
         - ${APACHE_SITES_PATH}:/etc/apache2/sites-available
         - ${APPLICATION}:/var/www:rw,delegated
       environment:
-           - VIRTUAL_HOST=local.boilerplate.com
+           - VIRTUAL_HOST=local.wp-keystone
            # HTTPS does not currently work with the proxy
            - HTTPS_METHOD=noredirect
       depends_on:
@@ -163,7 +163,7 @@ services:
     selenium-chrome:
         image: selenium/standalone-chrome-debug:3.4
         external_links:
-            - proxy:local.boilerplate.com
+            - proxy:local.wp-keystone
         ports:
             - "5900:5900"
         networks:

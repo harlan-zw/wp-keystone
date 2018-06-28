@@ -1,7 +1,16 @@
-Wordpress Keystone 
+WordPress Keystone 
 ===================
 
-This is the repo for the Wordpress Keystone project. 
+Wordpress Keystone is a WordPress boilerplate designed for quickly building effective 
+[twelve-factor applications](https://12factor.net/) 
+
+It is built on top of many existing projects:
+- [Laradock](https://github.com/laradock/laradock) (docker setup)
+- [Sage](https://github.com/roots/bedrock) - Architecture and Webpack
+- [Bedrock](https://github.com/roots/bedrock) - Architecture
+- [Laravel components](https://github.com/mattstauffer/Torch)
+- [Wordhat](https://github.com/paulgibbs/behat-wordpress-extension/)
+- [WP Function Me](http://www.wpfunction.me/)
 
 Setup
 -------------
