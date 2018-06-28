@@ -18,18 +18,7 @@ Setup
 
 #### **Environment**
 
-This project utilizes docker for all its local development. 
-
-Before starting the setup make sure you have:
-- [docker](https://www.docker.com/)
-- [docker proxy](https://4mation.atlassian.net/wiki/display/PD/Docker+Proxy) 
-```
-docker network create -d bridge proxy
-docker run -d --name proxy -p 80:80 --network="proxy" -v /var/run/docker.sock:/tmp/docker.sock:ro jwilder/nginx-proxy
-```
-- [yarn](https://yarnpkg.com/en/) `npm install -g yarn`
-- [wp-cli](http://wp-cli.org/#installing) `curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar`
-
+This project utilizes [docker](https://www.docker.com/) for all its local development, before starting the setup make sure you have it installed.
 
 #### **Boilerplate Instructions**
 
