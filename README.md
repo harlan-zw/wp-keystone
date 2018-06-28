@@ -5,12 +5,13 @@ Wordpress Keystone is a WordPress boilerplate designed for quickly building effe
 [twelve-factor applications](https://12factor.net/) 
 
 It is built on top of many existing projects:
-- [Laradock](https://github.com/laradock/laradock) (docker setup)
+- [Laradock](https://github.com/laradock/laradock) - Docker
 - [Sage](https://github.com/roots/bedrock) - Architecture and Webpack
 - [Bedrock](https://github.com/roots/bedrock) - Architecture
 - [Laravel components](https://github.com/mattstauffer/Torch)
 - [Wordhat](https://github.com/paulgibbs/behat-wordpress-extension/)
 - [WP Function Me](http://www.wpfunction.me/)
+- [Composer Git Hooks](http://change-me/)
 
 Setup
 -------------
@@ -84,17 +85,3 @@ the drivers. This has to be done outside of docker at the moment.
 
 1. Run the server `composer selenium`
 2. Run tests `composer test`
-
-
-Deployment
--------------
-
-#### **ElasticBeanstalk**
-
-This boilerplate comes equipped with boilerplate configuration files for deployment to ElasticBeanstalk. It leverages 
-BitBucket Pipelines to build the application, package it, upload it to an S3 bucket and then deploy it to ElasticBeanstalk.
-
-By default the `bitbucket-pipelines.yml` file lints and builds the application for testing purposes.
-Replace it with the `bitbucket-pipelines.yml.elastic-beanstalk.sample` file to deploy to ElasticBeanstalk. As specified
-within the file, you need to set the BitBucket Pipelines environment variables for the deployment environment to 
-successfully deploy to your ElasticBeanstalk setup.
