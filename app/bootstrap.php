@@ -28,8 +28,6 @@ if (\defined('WP_CLI') && WP_CLI) {
 
 
 // require components
-
-
 Container::getInstance()
          ->bindIf('config', function () {
 	        $files = collect(get_files_recursive(ROOT_DIR . '/config/app/', '/\.php$/'))->mapWithKeys(function($file) {

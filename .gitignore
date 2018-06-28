@@ -17,6 +17,7 @@ web/app/db.php
 web/app/mu-plugins/acf-widgets-4m/
 
 runtime/*
+!runtime/.gitkeep
 
 # WordPress
 web/wp
@@ -42,6 +43,7 @@ node_modules
 # Composer
 vendor/*
 !vendor/.gitkeep
+
 ### WordPress template
 *.log
 advanced-cache.php

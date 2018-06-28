@@ -17,6 +17,7 @@ namespace App;
  * add_theme_support('soil-nav-walker');
  */
 class NavWalker extends \Walker_Nav_Menu {
+
 	private $cpt; // Boolean, is current post a custom post type
 	private $archive; // Stores the archive page for current URL
 

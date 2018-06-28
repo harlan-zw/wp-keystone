@@ -10,9 +10,9 @@
     ]
   },
   "copyDir": "./static/",
-  "distPath": "/web/app/themes/mcgrath/dist",
-  "publicPath": "/app/themes/mcgrath",
-  "devUrl": "http://local.mcgrathfoundation.com.au",
+  "distPath": "/web/app/themes/main/dist",
+  "publicPath": "/app/themes/main",
+  "devUrl": "http://local.wp-keystone",
   "proxyUrl": "http://localhost:3000",
   "cacheBusting": "[name]_[hash:8]",
   "watch": [

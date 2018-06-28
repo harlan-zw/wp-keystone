@@ -744,6 +744,11 @@ RUN if [ ${INSTALL_DUSK_DEPS} = true ]; then \
   && rm chromedriver_linux64.zip \
 ;fi
 
+USER root
+
+# Network debugging tools
+RUN apt-get -y install nmap dnsutils
+
 #
 #--------------------------------------------------------------------------
 # Final Touch

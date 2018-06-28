@@ -1,11 +1,22 @@
-version: "3"
+version: "3.3"
+
+### Network Setup #############################################
+networks:
+    backend:
+        driver: bridge
+    # This is our docker proxy network and exposes port 80 and 443
+    proxy:
+        external: true
+
+
+### Volumes Setup #############################################
+volumes:
+    mysql:
+        driver: "local"
 
 services:
 
-### Workspace Utilities Container ###########################
-
     workspace:
-      network_mode: "bridge"
       build:
         context: ./env/docker/workspace
         args:
@@ -47,29 +58,25 @@ services:
           - TZ=${WORKSPACE_TIMEZONE}
           - INSTALL_WP_CLI=${WORKSPACE_WP_CLI}
         dockerfile: "Dockerfile-${PHP_VERSION}"
+      extra_hosts:
+        - "dockerhost:${DOCKER_HOST_IP}"
+      networks:
+        - backend
+      tty: true
       volumes:
         - ${APPLICATION}:/var/www:rw,delegated
         - ~/.ssh:/home/laradock/.ssh:cached
         - ~/.gitconfig:/home/laradock/.gitconfig:cached
         - ~/.config/composer:/home/laradock/.config/composer:cached
         - ~/.aws:/home/laradock/.aws:cached
-      extra_hosts:
-        - "dockerhost:${DOCKER_HOST_IP}"
-      links:
-        - selenium-chrome
-        - mysql
-      ports:
-        - "${WORKSPACE_SSH_PORT}:22"
-      tty: true
+
 
 ### MySQL Container #########################################
-
     mysql:
       build:
         context: ./env/docker/mysql
         args:
           - MYSQL_VERSION=${MYSQL_VERSION}
-      network_mode: "bridge"
       environment:
         - MYSQL_DATABASE=${MYSQL_DATABASE}
         - MYSQL_USER=${MYSQL_USER}
@@ -81,11 +88,12 @@ services:
         - ${MYSQL_ENTRYPOINT_INITDB}:/docker-entrypoint-initdb.d
       ports:
         - "${MYSQL_PORT}:3306"
+      networks:
+         - backend
 
 ### Apache Server Container #################################
 
     apache2:
-      network_mode: "bridge"
       domainname: local.boilerplate.com
       build:
         context: ./env/docker/apache2
@@ -93,12 +101,6 @@ services:
           - PHP_UPSTREAM_CONTAINER=${APACHE_PHP_UPSTREAM_CONTAINER}
           - PHP_UPSTREAM_PORT=${APACHE_PHP_UPSTREAM_PORT}
           - PHP_UPSTREAM_TIMEOUT=${APACHE_PHP_UPSTREAM_TIMEOUT}
-      links:
-        - php-fpm
-        - selenium-chrome
-        - mysql
-      external_links:
-        - proxy
       volumes:
         - ${APACHE_HOST_LOG_PATH}:/var/log/apache2
         - ${APACHE_SITES_PATH}:/etc/apache2/sites-available
@@ -109,12 +111,13 @@ services:
            - HTTPS_METHOD=noredirect
       depends_on:
         - php-fpm
-
+      networks:
+        - backend
+        - proxy
 
 ### PHP-FPM Container #######################################
 
     php-fpm:
-      network_mode: "bridge"
       build:
         context: ./env/docker/php-fpm
         args:
@@ -142,9 +145,6 @@ services:
           - INSTALL_IMAGE_OPTIMIZERS=${PHP_FPM_INSTALL_IMAGE_OPTIMIZERS}
           - INSTALL_IMAGEMAGICK=${PHP_FPM_INSTALL_IMAGEMAGICK}
         dockerfile: "Dockerfile-${PHP_VERSION}"
-      links:
-        - selenium-chrome
-        - mysql
       volumes:
         - ./env/docker/php-fpm/php${PHP_VERSION}.ini:/usr/local/etc/php/php.ini
         - ${APPLICATION}:/var/www:rw,delegated
@@ -156,20 +156,16 @@ services:
         - "dockerhost:${DOCKER_HOST_IP}"
       environment:
         - PHP_IDE_CONFIG=${PHP_IDE_CONFIG}
+      networks:
+        - backend
 
 
     selenium-chrome:
-        network_mode: "bridge"
         image: selenium/standalone-chrome-debug:3.4
         external_links:
             - proxy:local.boilerplate.com
         ports:
             - "5900:5900"
-        shm_size: '2gb'
-
-
-### Volumes Setup #############################################
-
-volumes:
-  mysql:
-    driver: "local"
+        networks:
+            - backend
+            - proxy

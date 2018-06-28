@@ -7,7 +7,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const StyleLintPlugin = require('stylelint-webpack-plugin');
 const CopyGlobsPlugin = require('copy-globs-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-
+const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
 const config = require('./config');
 
 const assetsFilenames = (config.enabled.cacheBusting) ? config.cacheBusting : '[name]';
@@ -217,10 +217,11 @@ let webpackConfig = {
                 eslint: { failOnWarning: false, failOnError: true },
             },
         }),
-        new StyleLintPlugin({
-            // failOnError: !config.enabled.watcher,
-            syntax: 'scss',
-        }),
+        // new StyleLintPlugin({
+        //     // failOnError: !config.enabled.watcher,
+        //     syntax: 'scss',
+        // }),
+        new FriendlyErrorsWebpackPlugin(),
     ],
 };
 

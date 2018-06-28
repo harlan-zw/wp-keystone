@@ -1,7 +1,7 @@
-Wordpress Boilerplate 
+Wordpress Keystone 
 ===================
 
-This is the repo for the Wordpress Boilerplate project. 
+This is the repo for the Wordpress Keystone project. 
 
 Setup
 -------------
@@ -12,7 +12,11 @@ This project utilizes docker for all its local development.
 
 Before starting the setup make sure you have:
 - [docker](https://www.docker.com/)
-- [docker proxy](https://4mation.atlassian.net/wiki/display/PD/Docker+Proxy) `docker run -d --name proxy -p 80:80 -v /var/run/docker.sock:/tmp/docker.sock:ro jwilder/nginx-proxy `
+- [docker proxy](https://4mation.atlassian.net/wiki/display/PD/Docker+Proxy) 
+```
+docker network create -d bridge proxy
+docker run -d --name proxy -p 80:80 --network="proxy" -v /var/run/docker.sock:/tmp/docker.sock:ro jwilder/nginx-proxy
+```
 - [yarn](https://yarnpkg.com/en/) `npm install -g yarn`
 - [wp-cli](http://wp-cli.org/#installing) `curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar`
 
@@ -20,9 +24,9 @@ Before starting the setup make sure you have:
 #### **Boilerplate Instructions**
 
 First Run a search & replace for the following:
- - Your site url: `local.boilerplate.com` -> local.your-domain
- - Your project title: `Wordpress Boilerplate` -> Your Project Name
- - Your project slug (docker): `project-slug` -> your-project-slug 
+ - Your site url: `local.wp-keystone` -> local.your-domain
+ - Your project title: `Wordpress Keystone` -> Your Project Name
+ - Your project slug (docker): `wp-keystone` -> your-project-slug 
  
 Then delete this section from the readme.
 
@@ -31,7 +35,7 @@ Local Setup
 1. Copy over the env file `cp -n env/.env.local .env`
 2. Copy over the htaccess `cp -n web/.htaccess.local web/.htaccess`
 3. Setup docker containers `docker-compose up -d`
-4. Setup your hosts file. `sudo sh -c 'echo "127.0.0.1       local.mcgrathfoundation.com.au" >> /etc/hosts'`
+4. Setup your hosts file. `sudo sh -c 'echo "127.0.0.1       local.wp-keystone" >> /etc/hosts'`
 5. Mount yourself to the workspace `./env/mount-workspace.sh`
 6. Run the deployment script `composer build`
 

@@ -1,15 +1,15 @@
 {
-    "name": "sage",
-    "version": "9.0.0-beta.4",
-    "author": "Roots <team@roots.io>",
-    "homepage": "https://roots.io/sage/",
+    "name": "wp-keystone",
+    "version": "1.0.0",
+    "author": "Harlan Wilton <harlan@harlanzw.com>",
+    "homepage": "https://harlanzw.com",
     "private": true,
     "repository": {
         "type": "git",
-        "url": "git://github.com/roots/sage.git"
+        "url": "git://github.com/loonpwn/wp-keystone.git"
     },
     "bugs": {
-        "url": "https://github.com/roots/sage/issues"
+        "url": "https://github.com/loonpwn/wp-keystone/issues"
     },
     "licenses": [
         {
@@ -97,6 +97,7 @@
         "cache-loader": "~1.0",
         "clean-webpack-plugin": "^0.1.16",
         "copy-globs-webpack-plugin": "^0.2.0",
+        "copy-webpack-plugin": "^4.3.1",
         "css-loader": "^0.28.4",
         "cssnano": "~4.0.0-rc.1",
         "eslint": "~4.2",
@@ -104,6 +105,7 @@
         "eslint-plugin-import": "~2.7",
         "extract-text-webpack-plugin": "~3.0",
         "file-loader": "^0.11.2",
+        "friendly-errors-webpack-plugin": "^1.7.0",
         "imagemin-mozjpeg": "~6.0",
         "imagemin-webpack-plugin": "~1.5.0-beta.0",
         "import-glob": "~1.5",
@@ -126,12 +128,9 @@
         "webpack-dev-middleware": "~1.11",
         "webpack-hot-middleware": "~2.18",
         "webpack-merge": "~4.1",
-        "copy-webpack-plugin": "^4.3.1",
         "yargs": "~8.0"
     },
     "dependencies": {
-        "headroom.js": "^0.9.4",
-        "jquery-match-height": "^0.7.2",
         "lazysizes": "^4.0.1",
         "webfontloader": "^1.6.28"
     }
