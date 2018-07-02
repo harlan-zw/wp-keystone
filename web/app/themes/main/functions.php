@@ -2,4 +2,4 @@
 /**
  * Setup our application
  */
-require_once APP_DIR . '/bootstrap.php';
+\App\load_keystone_directory(APP_DIR);

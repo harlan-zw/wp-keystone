@@ -37,26 +37,6 @@ class FixMyWP {
         }, 11);
     }
 
-    /**
-     * WordPress will try and be cool by modifying output, fixing new lines into paragraph tags, etc.
-     * This breaks our styling sometimes we so need to disable it. This in particular breaks one of the
-     * gravity forms fields by wrapping the span tags in p tags..
-     */
-    public static function fix_shortcode_output() {
-
-        add_filter('pre_do_shortcode_tag', function () {
-            remove_filter('the_content', 'wptexturize');
-            remove_filter('the_content', 'wpautop');
-            return false;
-        }, 1);
-
-	    add_filter('do_shortcode_tag', function($content) {
-		    add_filter('the_content', 'wptexturize');
-		    add_filter('the_content', 'wpautop');
-		    return $content;
-	    }, PHP_INT_MAX);
-
-    }
 
 // Call Googles HTML5 Shim, but only for users on old versions of IE
     public static function IEhtml5_shim() {
@@ -140,6 +120,28 @@ class FixMyWP {
         });
     }
 
+    public static function nice_body_classes() {
+	    /**
+	     * Add <body> classes
+	     */
+	    add_filter('body_class', function(array $classes) {
+		    /** Add page slug if it doesn't exist */
+		    if (is_single() || (is_page() && !is_front_page())) {
+			    if (!\in_array(basename(get_permalink()), $classes)) {
+				    $classes[] = basename(get_permalink());
+			    }
+		    }
+
+		    /** Clean up class names for custom templates */
+		    $classes = array_map(function($class) {
+			    return preg_replace(['/-blade(-php)?$/', '/^page-template-views/'], '', $class);
+		    }, $classes);
+
+		    return array_filter($classes);
+	    });
+
+    }
+
 }
 
 /* utility functions */
@@ -178,5 +180,5 @@ FixMyWP::force_footer_scripts();
 FixMyWP::force_oembed_width();
 FixMyWP::remove_wp_version();
 FixMyWP::include_pollyfill_io();
-//FixMyWP::remove_empty_p_tags();
-//FixMyWP::fix_shortcode_output();
+FixMyWP::nice_body_classes();
+FixMyWP::remove_empty_p_tags();

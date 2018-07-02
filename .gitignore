@@ -1,7 +1,11 @@
 # Application
 web/app/plugins/*
 !web/app/plugins/.gitkeep
+
+# Allow .php files but not folders within must use plugins
 web/app/mu-plugins/*/
+!web/app/mu-plugins/00-keystone
+
 web/app/upgrade
 web/app/uploads/*
 !web/app/uploads/.gitkeep
@@ -9,12 +13,6 @@ web/app/db.php
 
 # Word Fence logs
 /web/app/wflogs/*
-
-# Keep all 4m plugins
-!web/app/plugins/*-4m/
-!web/app/mu-plugins/*-4m/
-
-web/app/mu-plugins/acf-widgets-4m/
 
 runtime/*
 !runtime/.gitkeep

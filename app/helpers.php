@@ -2,37 +2,11 @@
 
 namespace App;
 
-use App\Services\CacheService;
-use App\Services\CauseviewService;
-use App\Services\PaypalService;
-use App\Services\SalesforceService;
 use Illuminate\Cache\CacheManager;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Log\Writer;
 use Illuminate\Support\Str;
-use League\Flysystem\MountManager;
 use Roots\Sage\Assets\JsonManifest;
-use Roots\Sage\Container;
-use RecursiveArrayIterator;
-use RecursiveIteratorIterator;
-
-/**
- * Get the sage container.
- *
- * @param string $abstract
- * @param array $parameters
- * @param Container $container
- * @return Container|mixed
- */
-function sage($abstract = null, $parameters = [], Container $container = null) {
-    $container = $container ?: Container::getInstance();
-    if (!$abstract) {
-        return $container;
-    }
-    return $container->bound($abstract)
-        ? $container->makeWith($abstract, $parameters)
-        : $container->makeWith("sage.{$abstract}", $parameters);
-}
 
 /**
  * Get / set the specified configuration value.
@@ -89,31 +63,7 @@ function asset_path($asset) {
     return assets()->getUri($asset);
 }
 
-/**
- * @param string|string[] $templates Possible template files
- * @return array
- */
-function filter_templates($templates) {
-    return collect($templates)
-        ->map(function ($template) {
-            return preg_replace('#\.(blade\.)?php$#', '', ltrim($template));
-        })
-        ->flatMap(function ($template) {
-            $paths = config('view.paths');
-            return collect($paths)
-                ->flatMap(function ($path) use ($template) {
-                    return [
-                        "{$path}/{$template}.blade.php",
-                        "{$path}/{$template}.php",
-                        "{$template}.blade.php",
-                        "{$template}.php",
-                    ];
-                });
-        })
-        ->filter()
-        ->unique()
-        ->all();
-}
+
 
 /**
  * @param string|string[] $templates Relative path to possible template files
@@ -123,39 +73,7 @@ function locate_template($templates) {
     return \locate_template(filter_templates($templates));
 }
 
-/**
- * Determine whether to show the sidebar
- * @return bool
- */
-function display_sidebar() {
-    static $display;
-    isset($display) || $display = apply_filters('sage/display_sidebar', false);
-    return $display;
-}
 
-/**
- * Recursive function to turn nested arrays into a dot style syntax to the specified depth
- * ['one => ['two' => 'three']] would become ['one.two' => 'three']
- * @param $array
- * @param int $maxDepth
- * @return array
- */
-function nested_array_to_dot_syntax($array, $maxDepth = 99) {
-    $ritit = new RecursiveIteratorIterator(new RecursiveArrayIterator($array));
-    $result = [];
-    foreach ($ritit as $leafValue) {
-        $keys = [];
-        foreach (range(0, $ritit->getDepth()) as $depth) {
-            if ($depth === $maxDepth) {
-                $leafValue = $ritit->getSubIterator($depth - 1)->current();
-                break;
-            }
-            $keys[] = $ritit->getSubIterator($depth)->key();
-        }
-        $result[join('.', $keys)] = $leafValue;
-    }
-    return $result;
-}
 
 /**
  * Page titles
@@ -228,32 +146,6 @@ function get_alt_logo_markup($class) {
     ]);
 }
 
-function get_files_recursive($dir, String $filter = '/.*', &$results = []) {
-	$files = scandir($dir, SCANDIR_SORT_NONE);
-
-	foreach ($files as $key => $value) {
-		$path = realpath($dir . DIRECTORY_SEPARATOR . $value);
-		if (!is_dir($path)) {
-			if (preg_match($filter, $path) !== false) {
-				$results[] = $path;
-			}
-		} else if ($value !== '.' && $value !== '..') {
-			get_files_recursive($path, $filter, $results);
-		}
-	}
-
-	return $results;
-}
-
-/**
- * Hooks a single callback to multiple tags
- */
-function add_filters($tags, $function, $priority = 10, $accepted_args = 1) {
-    foreach ((array)$tags as $tag) {
-        add_filter($tag, $function, $priority, $accepted_args);
-    }
-}
-
 
 /**
  * Format a phone number to be tel URI scheme consistent
@@ -292,37 +184,7 @@ function get_option_page_value($option) {
     return get_field($option, 'option');
 }
 
-/**
- * Compare URL against relative URL
- */
-function url_compare($url, $rel) {
-    $url = trailingslashit($url);
-    $rel = trailingslashit($rel);
-    return ((strcasecmp($url, $rel) === 0) || relative_url($url) == $rel);
-}
 
-
-function relative_url($input) {
-    if (is_feed()) {
-        return $input;
-    }
-    $url = parse_url($input);
-    if (!isset($url['host']) || !isset($url['path'])) {
-        return $input;
-    }
-    $site_url = parse_url(network_home_url());  // falls back to home_url
-    if (!isset($url['scheme'])) {
-        $url['scheme'] = $site_url['scheme'];
-    }
-    $hosts_match = $site_url['host'] === $url['host'];
-    $schemes_match = $site_url['scheme'] === $url['scheme'];
-    $ports_exist = isset($site_url['port']) && isset($url['port']);
-    $ports_match = ($ports_exist) ? $site_url['port'] === $url['port'] : true;
-    if ($hosts_match && $schemes_match && $ports_match) {
-        return wp_make_link_relative($input);
-    }
-    return $input;
-}
 
 
 /**

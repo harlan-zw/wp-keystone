@@ -1,6 +1,6 @@
 <?php
 /*
-Plugin Name:  Production Only Plugins
+Plugin Name:  Environment Based Plugins
 Plugin URI:   http://www.4mation.com.au/
 Description:  Force some plugins to only be enabled on the production environment
 Version:      1.0.0
