@@ -1,8 +1,5 @@
 // import external dependencies
 import 'jquery';
-import 'headroom.js';
-import 'headroom.js/dist/jQuery.headroom.js';
-import 'jquery-match-height';
 
 import 'lazysizes/plugins/unveilhooks/ls.unveilhooks';
 import 'lazysizes/plugins/object-fit/ls.object-fit';

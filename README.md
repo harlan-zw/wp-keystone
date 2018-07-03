@@ -30,7 +30,14 @@ First Run a search & replace for the following:
 Then delete this section from the readme.
 
 #### **Instructions**
-Local Setup
+
+_Start Proxy_
+```
+docker network create -d bridge proxy
+docker run -d --name proxy -p 80:80 --network="proxy" -v /var/run/docker.sock:/tmp/docker.sock:ro jwilder/nginx-proxy
+```
+
+_Local Setup_
 1. Copy over the env file `cp -n env/.env.local .env`
 2. Copy over the htaccess `cp -n web/.htaccess.local web/.htaccess`
 3. Setup docker containers `docker-compose up -d`
