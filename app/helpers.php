@@ -2,78 +2,7 @@
 
 namespace App;
 
-use Illuminate\Cache\CacheManager;
-use Illuminate\Filesystem\Filesystem;
-use Illuminate\Log\Writer;
 use Illuminate\Support\Str;
-use Roots\Sage\Assets\JsonManifest;
-
-/**
- * Get / set the specified configuration value.
- *
- * If an array is passed as the key, we will assume you want to set an array of values.
- *
- * @param array|string $key
- * @param mixed $default
- * @return mixed|\Roots\Sage\Config
- * @throws \Illuminate\Container\EntryNotFoundException
- * @copyright Taylor Otwell
- * @link https://github.com/laravel/framework/blob/c0970285/src/Illuminate/Foundation/helpers.php#L254-L265
- */
-function config($key = null, $default = null) {
-    if (is_null($key)) {
-        return sage('config');
-    }
-    if (is_array($key)) {
-        return sage('config')->set($key);
-    }
-    return sage('config')->get($key, $default);
-}
-
-/**
- * @param string $file
- * @param array $data
- * @return string
- */
-function template($file, $data = []) {
-    return sage('blade')->render($file, $data);
-}
-
-/**
- * Retrieve path to a compiled blade view
- * @param $file
- * @param array $data
- * @return string
- */
-function template_path($file, $data = []) {
-    return sage('blade')->compiledPath($file, $data);
-}
-
-/**
- * @return JsonManifest $manifest
- */
-function assets() {
-	return sage('assets');
-}
-/**
- * @param $asset
- * @return string
- */
-function asset_path($asset) {
-    return assets()->getUri($asset);
-}
-
-
-
-/**
- * @param string|string[] $templates Relative path to possible template files
- * @return string Location of the template
- */
-function locate_template($templates) {
-    return \locate_template(filter_templates($templates));
-}
-
-
 
 /**
  * Page titles
@@ -182,47 +111,4 @@ function get_URI_formatted_phone_number($phone_number) {
 
 function get_option_page_value($option) {
     return get_field($option, 'option');
-}
-
-
-
-
-/**
- * Our file system for our uploaded files on our local file system
- *
- * @return Filesystem
- */
-function files_uploads() {
-    $fs = sage('filesystem');
-    return $fs->getFilesystem('uploads');
-}
-
-/**
- * Our file system for our runtime directory
- *
- * @return FileSystem
- */
-function runtime() {
-    /** @var MountManager $fs */
-    $fs = sage('filesystem');
-    return $fs->getFilesystem('runtime');
-}
-
-/**
- * Logger instance for writing logs
- * @return Writer
- */
-function log() {
-	return sage('logger');
-}
-
-
-/**
- * Get our cache service
- *
- * @return \Illuminate\Contracts\Cache\Repository
- */
-function cache() {
-    /** @var CacheManager $cache_manager */
-    return sage('cache')->store();
 }

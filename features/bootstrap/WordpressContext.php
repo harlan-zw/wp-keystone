@@ -1,8 +1,7 @@
 <?php
 namespace App\Tests;
 
-use Behat\Mink\Exception\ExpectationException;
-use Behat\Mink\Exception\UnsupportedDriverActionException;
+use App\Tests\Helpers\NeedsUtility;
 use PaulGibbs\WordpressBehatExtension\Context\RawWordpressContext;
 
 /**
@@ -10,6 +9,7 @@ use PaulGibbs\WordpressBehatExtension\Context\RawWordpressContext;
  */
 class WordpressContext extends RawWordpressContext {
 
+	use NeedsUtility;
 
 	/**
 	 * @Given /^Wordpress creates an account "([^"]*)" with email "([^"]*)"$/
@@ -36,47 +36,6 @@ class WordpressContext extends RawWordpressContext {
 			$this->getDriver()->user->create( $args );
 		} catch(\Exception $e) {
 			// do nothing
-		}
-	}
-
-	/**
-	 * Log user in.
-	 *
-	 * Example: Given I am logged in as an admin
-	 *
-	 * @Given /^I am logged in as "(.+)"$/
-	 * @param $user
-	 */
-	public function iAmLoggedInAsUser($username)
-	{
-		$redirect_to = '/dashboard/my-profile/';
-		$password = 'test';
-
-		$this->visitPath('/wp/wp-login.php?redirect_to=' . urlencode($this->locatePath($redirect_to)));
-		$page = $this->getSession()->getPage();
-
-		$node = $page->findField('user_login');
-		try {
-			$node->focus();
-		} catch (UnsupportedDriverActionException $e) {
-			// This will fail for GoutteDriver but neither is it necessary
-		}
-		$node->setValue('');
-		$node->setValue($username);
-
-		$node = $page->findField('user_pass');
-		try {
-			$node->focus();
-		} catch (UnsupportedDriverActionException $e) {
-			// This will fail for GoutteDriver but neither is it necessary
-		}
-		$node->setValue('');
-		$node->setValue($password);
-
-		$page->findButton('wp-submit')->click();
-
-		if (! $this->loggedIn()) {
-			throw new ExpectationException('The user could not be logged-in.', $this->getSession()->getDriver());
 		}
 	}
 
@@ -109,7 +68,6 @@ class WordpressContext extends RawWordpressContext {
         if ( isset($user) && $user->user_email == $email ) {
             throw new \Exception("User $username does exist.");
         }
-
     }
 
     /**
@@ -147,47 +105,6 @@ class WordpressContext extends RawWordpressContext {
         	// no nothing
         }
 
-    }
-
-    /**
-     * @description ~ Get post meta value
-     * @param int $postId Post ID
-     * @param string $field Field
-     * @return string Post meta value
-     */
-    private function getPostMetaValue($postId, $field) {
-        $postMeta = $this->getDriver()->wpcli("post", "meta get $postId $field");
-        return $postMeta['stdout'];
-    }
-
-    /**
-     * @description ~ Get taxonomy value
-     * @param int $postId Post ID
-     * @param string $taxonomy Taxonomy
-     * @return string Taxonomy value
-     */
-    private function getTermTaxonomyValue($postId, $taxonomy) {
-        $termList = $this->getDriver()->wpcli("post", "term list $postId $taxonomy --fields=name --format=json");
-        $termListJson = json_decode($termList['stdout']);
-        return $termListJson[0]->name;
-    }
-
-    /**
-     * @description ~ Get taxonomy list
-     * @param string $objectType Object type
-     * @return array Taxonomy names
-     */
-    private function getTaxonomyList($objectType) {
-        $taxonomies = $this->getDriver()->wpcli("taxonomy", "list --object_type=$objectType --format=json");
-        $taxonomies = json_decode($taxonomies['stdout']);
-
-        $resp = array();
-
-        foreach ($taxonomies AS $aTaxonomy) {
-            $resp[] = $aTaxonomy->name;
-        }
-
-        return $resp;
     }
 
 }

@@ -1,15 +1,10 @@
 <?php
-namespace App\Tests;
-
-use App\Tests\Helpers\BehatUtility;
-use Behat\Behat\Tester\Exception\PendingException;
-use PaulGibbs\WordpressBehatExtension\Context\RawWordpressContext;
-
+namespace App\Tests\Helpers;
 
 /**
  * UtilityContext is used for any function which is irrelevant of code base.
  */
-class UtilityContext extends RawWordpressContext {
+trait NeedsUtility {
 
     /**
      * @When /^I resize the window to desktop$/

@@ -3,8 +3,8 @@
 namespace App;
 
 add_action('admin_enqueue_scripts', function() {
-    wp_enqueue_style('mcgrath/admin.css', asset_path('styles/admin.css'), false, null);
-    wp_enqueue_script('mcgrath/admin.js', asset_path('scripts/admin.js'), ['jquery'], null, true);
+    wp_enqueue_style('main/admin.css', asset_path('styles/admin.css'), false, null);
+    wp_enqueue_script('main/admin.js', asset_path('scripts/admin.js'), ['jquery'], null, true);
 }, 100);
 
 /**
