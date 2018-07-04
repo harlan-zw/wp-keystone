@@ -36,7 +36,7 @@ add_editor_style(asset_path('styles/main.css'));
  * Register navigation menus
  * @link https://developer.wordpress.org/reference/functions/register_nav_menus/
  */
-register_nav_menus([
-	PRIMARY_NAV_SLUG => 'Primary Navigation',
-	FOOTER_NAV_SLUG => 'Footer Navigation',
-]);
+//register_nav_menus([
+//	PRIMARY_NAV_SLUG => 'Primary Navigation',
+//	FOOTER_NAV_SLUG => 'Footer Navigation',
+//]);

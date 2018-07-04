@@ -20,7 +20,6 @@ app()->singleton('config', function() {
  * @param array|string $key
  * @param mixed $default
  * @return mixed|\Roots\Sage\Config
- * @throws \Illuminate\Container\EntryNotFoundException
  * @copyright Taylor Otwell
  * @link https://github.com/laravel/framework/blob/c0970285/src/Illuminate/Foundation/helpers.php#L254-L265
  */

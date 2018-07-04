@@ -1,16 +1,18 @@
 <!doctype html>
-<html @php(language_attributes())>
-@include('partials.head')
-<body @php(body_class())>
-@php(do_action('get_header'))
-@include('partials.header')
-<main class="main content">
-  @yield('content')
-</main>
-@php(do_action('get_footer'))
-@include('partials.footer')
-@include('partials.sub-menu')
-
-@php(wp_footer())
-</body>
+<html @php language_attributes() @endphp>
+  @include('partials.head')
+  <body @php body_class() @endphp>
+    @php do_action('get_header') @endphp
+    @include('partials.header')
+    <div class="wrap container" role="document">
+      <div class="content">
+        <main class="main">
+          @yield('content')
+        </main>
+      </div>
+    </div>
+    @php do_action('get_footer') @endphp
+    @include('partials.footer')
+    @php wp_footer() @endphp
+  </body>
 </html>

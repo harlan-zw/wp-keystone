@@ -46,35 +46,40 @@ function load_keystone_directory($directory) {
 					include $component_path . $file . '.php';
 				});
 			};
+			// clean folder string
+			$action_name = str_replace('-', '_', ltrim($folder, '/'));
 
-			if ($folder === '/') {
+			if (empty($action_name)) {
 				// always just load them in
 				$include_files();
 				return;
 			}
-
+			// acf uses namespaced actions
+			if (starts_with($action_name, 'acf')) {
+				$action_name = str_replace('_', '/', $action_name);
+			}
 			// otherwise we wait until our action runs
-			add_action(str_replace('-', '_', ltrim($folder, '/')), $include_files, 1);
+			add_action($action_name, $include_files, 1);
 		});
 
-	$preload_files = collect('helpers')
-		->merge(get_files_recursive($directory . '/components', '/\.php$/'));
+	$preload_files = collect();
 
 	// We only pre-load our commands if the WP_CLI constant exists
 	if (\defined('WP_CLI') && WP_CLI) {
 		$preload_files = $preload_files->merge(get_files_recursive($directory . '/commands', '/\.php$/'));
 	}
 	$preload_files
-		->map(function ($file) {
-			return str_replace([ '.php', APP_DIR ], '', $file);
+		->map(function ($file) use($directory) {
+			return str_replace([ '.php', $directory ], '', $file);
 		})
 		->filter(function ($f) {
 			return !empty($f);
 		})
+		->push('helpers')
 		->push('setup')
-		->each(function($file) {
-			if (file_exists(APP_DIR . "/{$file}.php")) {
-				require_once APP_DIR . "/{$file}.php";
+		->each(function($file) use($directory) {
+			if (file_exists($directory . "/{$file}.php")) {
+				require_once $directory . "/{$file}.php";
 			}
 		});
 

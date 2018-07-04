@@ -131,7 +131,9 @@
         "yargs": "~8.0"
     },
     "dependencies": {
+        "bootstrap": "^4.1.1",
         "lazysizes": "^4.0.1",
+        "popper.js": "^1.14.3",
         "webfontloader": "^1.6.28"
     }
 }

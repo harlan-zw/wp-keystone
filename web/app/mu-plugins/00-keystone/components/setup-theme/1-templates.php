@@ -1,6 +1,13 @@
 <?php
 namespace App;
 
+function get_view_path() {
+	return ROOT_DIR . '/resources/views';
+}
+add_filter('theme_file_path', __NAMESPACE__ . '\\get_view_path');
+add_filter('template_directory', __NAMESPACE__ . '\\get_view_path');
+
+
 /**
  * @param string|string[] $templates Relative path to possible template files
  * @return string Location of the template
@@ -73,5 +80,4 @@ add_filter('template_include', function($template) {
 	return $template;
 }, PHP_INT_MAX);
 
-add_filter('theme_file_path', 'get_view_path');
-add_filter('template_directory', 'get_view_path');
+

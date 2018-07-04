@@ -16,7 +16,7 @@ class Keystone extends WP_CLI_Command {
 	 * @when after_wp_load
 	 */
 	public function version() {
-		return WP_CLI::line('Keystone v' . \App\KEYSTONE_VERSION);
+		return WP_CLI::line('Keystone v' . \App\config('keystone.version'));
 	}
 }
 
