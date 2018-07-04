@@ -17,6 +17,7 @@ volumes:
 services:
 
     workspace:
+      container_name: "wp-keystone-workspace"
       build:
         context: ./env/docker/workspace
         args:
@@ -73,6 +74,7 @@ services:
 
 ### MySQL Container #########################################
     mysql:
+      container_name: "wp-keystone-mysql"
       build:
         context: ./env/docker/mysql
         args:
@@ -94,6 +96,7 @@ services:
 ### Apache Server Container #################################
 
     apache2:
+      container_name: "wp-keystone-apache2"
       domainname: local.wp-keystone
       build:
         context: ./env/docker/apache2
@@ -118,6 +121,7 @@ services:
 ### PHP-FPM Container #######################################
 
     php-fpm:
+      container_name: "wp-keystone-php-fpm"
       build:
         context: ./env/docker/php-fpm
         args:
@@ -161,11 +165,12 @@ services:
 
 
     selenium-chrome:
-        image: selenium/standalone-chrome-debug:3.4
-        external_links:
-            - proxy:local.wp-keystone
-        ports:
-            - "5900:5900"
-        networks:
-            - backend
-            - proxy
+      container_name: "wp-keystone-selenium"
+      image: selenium/standalone-chrome-debug:3.4
+      external_links:
+          - proxy:local.wp-keystone
+      ports:
+          - "5900:5900"
+      networks:
+          - backend
+          - proxy
