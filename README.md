@@ -4,6 +4,12 @@ WordPress Keystone
 Wordpress Keystone is a WordPress boilerplate designed for quickly building effective 
 [twelve-factor applications](https://12factor.net/) 
 
+Why WordPress Keystone?
+- Development environment ready to go with docker
+- Asset building with webpack 
+- Ease of use at the core design 
+- All-in-one solution ready to build your next site 
+
 It is built on top of many existing projects:
 - [Laradock](https://github.com/laradock/laradock) - Docker
 - [Sage](https://github.com/roots/bedrock) - Architecture and Webpack
