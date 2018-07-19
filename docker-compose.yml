@@ -68,7 +68,7 @@ services:
         - backend
       tty: true
       volumes:
-        - ${APPLICATION}:/var/www:rw,delegated
+        - ${APP_CODE_PATH_HOST}:/var/www:rw,delegated
         - ~/.ssh:/home/laradock/.ssh:cached
         - ~/.gitconfig:/home/laradock/.gitconfig:cached
         - ~/.config/composer:/home/laradock/.config/composer:cached
@@ -111,7 +111,7 @@ services:
       volumes:
         - ${APACHE_HOST_LOG_PATH}:/var/log/apache2
         - ${APACHE_SITES_PATH}:/etc/apache2/sites-available
-        - ${APPLICATION}:/var/www:rw,delegated
+        - ${APP_CODE_PATH_HOST}:/var/www:rw,delegated
       environment:
            - VIRTUAL_HOST=${WP_HOME}
            - HTTPS_METHOD=noredirect
@@ -158,7 +158,7 @@ services:
           - INSTALL_IMAGEMAGICK=${PHP_FPM_INSTALL_IMAGEMAGICK}
       volumes:
         - ./env/docker/php-fpm/php${PHP_VERSION}.ini:/usr/local/etc/php/php.ini
-        - ${APPLICATION}:/var/www:rw,delegated
+        - ${APP_CODE_PATH_HOST}:/var/www:rw,delegated
       expose:
         - "9000"
       depends_on:
