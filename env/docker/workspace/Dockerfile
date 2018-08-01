@@ -765,6 +765,22 @@ RUN if [ ${INSTALL_DUSK_DEPS} = true ]; then \
   && rm chromedriver_linux64.zip \
 ;fi
 
+#####################################
+# WP-CLI:
+#####################################
+USER root
+
+ARG INSTALL_WP_CLI=false
+ENV INSTALL_WP_CLI ${INSTALL_WP_CLI}
+
+RUN if [ ${INSTALL_WP_CLI} = true ]; then \
+    apt-get update && \
+    apt-get -y install mysql-client && \
+    curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && \
+    chmod +x wp-cli.phar && \
+    mv wp-cli.phar /usr/local/bin/wp \
+;fi
+
 ###########################################################################
 # Check PHP version:
 ###########################################################################
