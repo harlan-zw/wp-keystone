@@ -58,6 +58,10 @@
         "wordpress-install-dir": "web/wp"
     },
     "scripts": {
+        "post-root-package-install": [
+            "php -r \"copy('.env.example', '.env');\"",
+            "php -r \"copy('web/.htaccess.sample', 'web/.htaccess');\""
+        ],
         "post-install-cmd": "vendor/bin/cghooks add --ignore-lock",
         "post-update-cmd": "vendor/bin/cghooks update",
         "test": "./vendor/bin/behat --colors --stop-on-failure -v",
