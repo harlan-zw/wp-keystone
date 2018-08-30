@@ -56,16 +56,8 @@
             ]
         },
         "rules": {
-            "comma-dangle": [
-                "error",
-                {
-                    "arrays": "always-multiline",
-                    "objects": "always-multiline",
-                    "imports": "always-multiline",
-                    "exports": "always-multiline",
-                    "functions": "ignore"
-                }
-            ]
+            "comma-dangle": "warn",
+            "no-console": "warn"
         }
     },
     "stylelint": {
@@ -84,7 +76,10 @@
         "node": ">= 6.9.4"
     },
     "devDependencies": {
-        "laravel-mix": "^2.1.14"
+        "laravel-mix": "^2.1.14",
+        "stylelint": "^9.5.0",
+        "stylelint-config-standard": "^18.2.0",
+        "stylelint-webpack-plugin": "^0.10.5"
     },
     "dependencies": {
         "bootstrap": "^4.1.1",
