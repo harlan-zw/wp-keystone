@@ -14,18 +14,16 @@ return [
     |
     */
 
-    'manifest' => get_stylesheet_directory().'/dist/assets.json',
+    'manifest' => WEB_DIR . '/mix-manifest.json',
 
     /*
     |--------------------------------------------------------------------------
     | Assets Path URI
     |--------------------------------------------------------------------------
     |
-    | The asset manifest contains relative paths to your assets. This URI will
-    | be prepended when using Sage's asset management system. Change this if
-    | you are using a CDN.
+    | The asset manifest contains relative paths to your assets.
     |
     */
 
-    'uri' => get_theme_file_uri().'/dist',
+    'uri' => WEB_DIR . '/dist',
 ];

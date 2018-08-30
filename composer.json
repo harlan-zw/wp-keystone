@@ -28,24 +28,18 @@
         "illuminate/log": "~5.5.0",
         "illuminate/support": "^5.5",
         "illuminate/view": "^5.5.2",
-        "johnpbloch/wordpress": "^4.9.5",
+        "johnpbloch/wordpress": "^4.9.8",
         "oscarotero/env": "^1.1.0",
-        "roots/sage-lib": "~9.0.0-beta.4",
-        "roots/wp-password-bcrypt": "^1.0.0",
         "vlucas/phpdotenv": "^2.4.0"
     },
     "require-dev": {
         "behat/mink": "^1.7.1",
         "behat/mink-goutte-driver": "^1.2",
         "behat/mink-selenium2-driver": "^1.3.1",
-        "paulgibbs/behat-wordpress-extension": "^0.9.0",
+        "paulgibbs/behat-wordpress-extension": "^3.0.0",
         "squizlabs/php_codesniffer": "^3.1.0",
-
-        "wpackagist-plugin/check-email": "^0.5.5",
         "wpackagist-plugin/easy-development": "^1.0.5",
-        "wpackagist-plugin/query-monitor": "^3.0.0",
-        "wpackagist-plugin/wp-sweep": "^1.0",
-        "wpackagist-plugin/duplicate-post":"^3.2.2"
+        "wpackagist-plugin/query-monitor": "^3.0.0"
     },
     "extra": {
         "installer-paths": {
@@ -62,13 +56,13 @@
             "php -r \"copy('.env.example', '.env');\"",
             "php -r \"copy('web/.htaccess.sample', 'web/.htaccess');\""
         ],
-        "post-install-cmd": "vendor/bin/cghooks add --ignore-lock",
-        "post-update-cmd": "vendor/bin/cghooks update",
-        "test": "./vendor/bin/behat --colors --stop-on-failure -v",
-        "build": "./env/build/deploy.sh",
+        "post-install-cmd": "cghooks add --ignore-lock",
+        "post-update-cmd": "cghooks update",
+        "test": "behat --colors --stop-on-failure -v",
+        "build": "./env/tools/build.sh",
         "lint": [
-            "./vendor/bin/phpcbf -n",
-            "./vendor/bin/phpcs --warning-severity=6"
+            "phpcbf -n",
+            "phpcs --warning-severity=6"
         ],
         "vnc": "vncviewer 127.0.0.1:5900 -passwd env/vncpasswd"
     }

@@ -45,6 +45,12 @@
         <exclude name="PSR1.Files.SideEffects.FoundWithSymbols"/>
         <exclude name="Squiz.ControlStructures.ControlSignature.SpaceAfterKeyword"/>
     </rule>
+    <!-- Spacing between string concatenation -->
+    <rule ref="Squiz.Strings.ConcatenationSpacing">
+        <properties>
+            <property name="spacing" value="1" />
+        </properties>
+    </rule>
     <!-- Braces are not on new lines -->
     <rule ref="Generic.Functions.OpeningFunctionBraceKernighanRitchie" />
 

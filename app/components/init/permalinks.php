@@ -3,7 +3,7 @@
 namespace App;
 
 /**
- * Make links relative - Make sure this occurs after the template redirect to avoid any weird redirections
+ * Make links relative - Make sure this occurs after the template redirect to avoid any weird redirection
  */
 
 /**
@@ -54,13 +54,13 @@ add_action('template_redirect', function() {
 /**
  * Anything in the rewrites config is registered
  */
-collect(config('rewrites.rules'))->each(function($route, $regex) {
+collect(config()->get('rewrites.rules'))->each(function($route, $regex) {
 	add_rewrite_rule($regex, $route, 'top');
 });
 
 
 add_filter('query_vars', function($vars) {
-	return array_merge($vars, config('rewrites.query_vars'));
+	return array_merge($vars, config()->get('rewrites.query_vars'));
 });
 
 
