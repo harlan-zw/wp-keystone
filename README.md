@@ -18,6 +18,7 @@ It is built on top of many existing projects:
 - [Wordhat](https://github.com/paulgibbs/behat-wordpress-extension/)
 - [WP Function Me](http://www.wpfunction.me/)
 - [Composer Git Hooks](http://change-me/)
+- [Laravel Mix](https://github.com/JeffreyWay/laravel-mix)
 
 Setup
 -------------

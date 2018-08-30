@@ -1,4 +1,15 @@
-let mix = require('laravel-mix');
+const mix = require('laravel-mix');
+
+mix
+    .setPublicPath('web')
+    .autoload({
+        jquery: ['$','jQuery', 'window.jQuery']
+    })
+.webpackConfig({
+    externals: {
+        "jquery": "jQuery"
+    }
+});
 
 /*
  |--------------------------------------------------------------------------
@@ -12,7 +23,16 @@ let mix = require('laravel-mix');
  */
 const distPath = 'web/dist';
 
-mix.js('resources/assets/js/main.js', distPath).sass('resources/assets/scss/main.scss', distPath);
+mix
+    .js('resources/assets/js/main.js', distPath)
+    .sass('resources/assets/scss/main.scss', distPath);
+
+if (mix.inProduction()) {
+    mix.version();
+    mix.disableNotifications();
+} else {
+    mix.sourceMaps();
+}
 
 // Full API
 // mix.js(src, output);

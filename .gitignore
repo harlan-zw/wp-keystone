@@ -66,3 +66,6 @@ wp-cache-config.php
 
 # CSV exports
 /runtime/csv-exports
+
+web/dist
+mix-manifest.json
