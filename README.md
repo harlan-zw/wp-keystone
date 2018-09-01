@@ -4,21 +4,46 @@ WordPress Keystone
 Wordpress Keystone is a WordPress boilerplate designed for quickly building effective 
 [twelve-factor applications](https://12factor.net/) 
 
-Why WordPress Keystone?
+#### **Why WordPress Keystone?**
 - Development environment ready to go with docker
 - Asset building with Laravel Mix
-- Ease of use at the core design 
-- All-in-one solution ready to build your next site 
+- Component design at the core
+- Workflows built around git hooks 
+- Automatic testing ready to go 
 
-It is built on top of many existing projects:
+WordPress Keystone is the combination of many libraries, taking inspiration and straight
+code from them. If you are confused on how some of the parts of this project work,
+checkout the following projects:
 - [Laradock](https://github.com/laradock/laradock) - Docker
-- [Sage](https://github.com/roots/bedrock) - Architecture and Webpack
+- [Sage](https://github.com/roots/sage) - Architecture
 - [Bedrock](https://github.com/roots/bedrock) - Architecture
-- [Laravel components](https://github.com/mattstauffer/Torch)
-- [Wordhat](https://github.com/paulgibbs/behat-wordpress-extension/)
-- [WP Function Me](http://www.wpfunction.me/)
-- [Composer Git Hooks](http://change-me/)
-- [Laravel Mix](https://github.com/JeffreyWay/laravel-mix)
+- [Laravel components](https://github.com/mattstauffer/Torch) - Laravel packages
+- [Wordhat](https://github.com/paulgibbs/behat-wordpress-extension/) - Automated testing
+- [WP Function Me](http://www.wpfunction.me/) - Random snippets
+- [Composer Git Hooks](http://change-me/) - Workflow triggers
+- [Laravel Mix](https://github.com/JeffreyWay/laravel-mix) - Asset Builds
+
+#### **Project Structure**
+
+`app` - Project functionality 
+
+`app/components` - This is the bread and butter of the boilerplate. All your code you would usually stick
+in `functions.php` lives here. WordPress Keystone wil automatically parse folders within the `components` folder 
+and have the files contained loaded under their wordpress filter or hook. 
+This forces developers to think about when there code is being executed within the WordPress runtime. 
+
+`config` - All application configuration is found here including constant definition and bootstrapping
+
+`env` - Environment based files. Mainly docker configuration and tools are found within here.  
+
+`features` - Behat tests
+
+`resources` - Most importantly, your view files are found here as well as styles and scripts.
+
+`runtime` - Any application runtime files live here, besides uploads.   
+
+`web` - This is your web root. Avoid putting anything in here if you can.
+
 
 Setup
 -------------

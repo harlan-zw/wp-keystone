@@ -128,34 +128,31 @@ services:
       build:
         context: ./env/docker/php-fpm
         args:
-          - PHP_VERSION=${PHP_VERSION}
-          - INSTALL_XDEBUG=${PHP_FPM_INSTALL_XDEBUG}
-          - INSTALL_PHPDBG=${PHP_FPM_INSTALL_PHPDBG}
-          - INSTALL_BLACKFIRE=${INSTALL_BLACKFIRE}
-          - INSTALL_SOAP=${PHP_FPM_INSTALL_SOAP}
-          - INSTALL_IMAP=${PHP_FPM_INSTALL_IMAP}
-          - INSTALL_MONGO=${PHP_FPM_INSTALL_MONGO}
-          - INSTALL_AMQP=${PHP_FPM_INSTALL_AMQP}
-          - INSTALL_MSSQL=${PHP_FPM_INSTALL_MSSQL}
-          - INSTALL_ZIP_ARCHIVE=${PHP_FPM_INSTALL_ZIP_ARCHIVE}
-          - INSTALL_BCMATH=${PHP_FPM_INSTALL_BCMATH}
-          - INSTALL_GMP=${PHP_FPM_INSTALL_GMP}
-          - INSTALL_PHPREDIS=${PHP_FPM_INSTALL_PHPREDIS}
-          - INSTALL_MEMCACHED=${PHP_FPM_INSTALL_MEMCACHED}
-          - INSTALL_OPCACHE=${PHP_FPM_INSTALL_OPCACHE}
-          - INSTALL_EXIF=${PHP_FPM_INSTALL_EXIF}
-          - INSTALL_AEROSPIKE=${PHP_FPM_INSTALL_AEROSPIKE}
-          - AEROSPIKE_PHP_REPOSITORY=${AEROSPIKE_PHP_REPOSITORY}
-          - INSTALL_MYSQLI=${PHP_FPM_INSTALL_MYSQLI}
-          - INSTALL_PGSQL=${PHP_FPM_INSTALL_PGSQL}
-          - INSTALL_PG_CLIENT=${PHP_FPM_INSTALL_PG_CLIENT}
-          - INSTALL_TOKENIZER=${PHP_FPM_INSTALL_TOKENIZER}
-          - INSTALL_INTL=${PHP_FPM_INSTALL_INTL}
-          - INSTALL_GHOSTSCRIPT=${PHP_FPM_INSTALL_GHOSTSCRIPT}
-          - INSTALL_LDAP=${PHP_FPM_INSTALL_LDAP}
-          - INSTALL_SWOOLE=${PHP_FPM_INSTALL_SWOOLE}
-          - INSTALL_IMAGE_OPTIMIZERS=${PHP_FPM_INSTALL_IMAGE_OPTIMIZERS}
-          - INSTALL_IMAGEMAGICK=${PHP_FPM_INSTALL_IMAGEMAGICK}
+          - LARADOCK_PHP_VERSION=${PHP_VERSION}
+          - INSTALL_XDEBUG=true
+          - INSTALL_PHPDBG=false
+          - INSTALL_SSH2=false
+          - INSTALL_SOAP=false
+          - INSTALL_IMAP=false
+          - INSTALL_AMQP=false
+          - INSTALL_ZIP_ARCHIVE=true
+          - INSTALL_BCMATH=false
+          - INSTALL_GMP=true
+          - INSTALL_PHPREDIS=false
+          - INSTALL_MEMCACHED=true
+          - INSTALL_OPCACHE=true
+          - INSTALL_EXIF=true
+          - INSTALL_MYSQLI=true
+          - INSTALL_PGSQL=false
+          - INSTALL_PG_CLIENT=false
+          - INSTALL_TOKENIZER=false
+          - INSTALL_INTL=true
+          - INSTALL_GHOSTSCRIPT=false
+          - INSTALL_LDAP=false
+          - INSTALL_IMAGE_OPTIMIZERS=true
+          - INSTALL_IMAGEMAGICK=true
+          - INSTALL_CALENDAR=false
+          - INSTALL_FAKETIME=false
       volumes:
         - ./env/docker/php-fpm/php${PHP_VERSION}.ini:/usr/local/etc/php/php.ini
         - ${APP_CODE_PATH_HOST}:/var/www:rw,delegated

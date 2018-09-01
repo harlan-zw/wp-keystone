@@ -9,44 +9,7 @@ if (!function_exists('acf_add_options_page')) {
 	return;
 }
 
-const OPTION_PAGE_SLUG = 'mcgrath-settings';
-
-const OPTION_PAGE_MAIN_LOGO = 'main_logo';
-const OPTION_PAGE_ALT_LOGO = 'alt_logo';
-const OPTION_PAGE_TC_PDF = 'terms_and_conditions';
-const OPTION_PAGE_PHONE_NUMBER = 'phone_number';
-const OPTION_PAGE_TELEPHONE = 'contact_telephone';
-const OPTION_PAGE_PHONE_PREFIX = 'phone_prefix';
-const OPTION_PAGE_PHONE_PREFIX_KEY = 'field_58e6ed96157df';
-const OPTION_PAGE_CONTACT_EMAIL = 'contact_email';
-
-const OPTION_PAGE_MAPS_KEY = 'maps_key';
-const OPTION_PAGE_JOBADDER_KEY = 'jobadder_key';
-const OPTION_PAGE_STREET = 'street';
-const OPTION_PAGE_SUBURB = 'suburb';
-const OPTION_PAGE_STATE = 'state';
-const OPTION_PAGE_POSTCODE = 'postcode';
-const OPTION_PAGE_OUR_LOCATIONS = 'our_location_column';
-const OPTION_PAGE_HEADER_BANNER = 'header_banner';
-
-// Contact card
-const OPTION_PAGE_CONTACT_CARDS = 'contact_us_cards';
-const OPTION_PAGE_CONTACT_PROFILE_PICTURE = 'profile_picture';
-const OPTION_PAGE_CONTACT_TITLE = 'contact_title';
-const OPTION_PAGE_CONTACT_SUB_TITLE = 'contact_sub_title';
-const OPTION_PAGE_CONTACT_PHONE = 'contact_phone';
-const OPTION_PAGE_CONTACT_DESCRIPTION = 'contact_description';
-
-const OPTION_PAGE_CAMPAIGN_ENABLED = 'campaign_enabled';
-const OPTION_PAGE_CAMPAIGN_IMAGE = 'campaign_image';
-const OPTION_PAGE_CAMPAIGN_HEADER = 'campaign_header';
-const OPTION_PAGE_CAMPAIGN_TITLE = 'campaign_title';
-const OPTION_PAGE_CAMPAIGN_TEXT = 'campaign_text';
-const OPTION_PAGE_CAMPAIGN_CTA_TITLE = 'campaign_cta_title';
-const OPTION_PAGE_CAMPAIGN_CTA_LINK = 'campaign_cta_link';
-const OPTION_PAGE_CAMPAIGN_CIRCLE_IMAGE = 'campaign_circle_image';
-
-const OPTION_PAGE_FOOTER = 'footer';
+const OPTION_PAGE_SLUG = 'wp-keystone-settings';
 
 $fields = [
 	[
