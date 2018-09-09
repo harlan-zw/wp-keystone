@@ -1,6 +1,7 @@
 {
-    "name": "loonpwn/wp-keystone",
+    "name": "harlanzw/wp-keystone",
     "type": "project",
+    "version": "0.1",
     "authors": [
         {
             "name": "Harlan Wilton",
