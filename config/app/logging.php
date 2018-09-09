@@ -34,15 +34,8 @@ return [
 		'wp' => [
 			'driver' => 'daily',
 			'level' => 'debug',
-			'path' => 's3://' . AS3CF_BUCKET . '/logs/wp.log',
+			'path' => RUNTIME_DIR . '/logs/wp.log',
 			'days' => 3,
-		],
-
-		'salesforce' => [
-			'driver' => 'daily',
-			'level' => 'debug',
-			'path' => 's3://' . AS3CF_BUCKET . '/logs/salesforce.log',
-			'days' => 14,
 		],
 
 	],

@@ -16,7 +16,7 @@ return [
 
         'file' => [
             'driver' => 'file',
-            'path' => ROOT_DIR . '/runtime/cache'
+            'path' => RUNTIME_DIR . '/cache'
         ]
 
     ],

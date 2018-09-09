@@ -9,17 +9,12 @@ if(isset($_SERVER['HTTP_X_FORWARDED_PROTO'])
 
 /** @var string Directory containing all of the site's files */
 $root_dir = dirname(__DIR__);
+
+// define paths constants
 define('ROOT_DIR', $root_dir);
-
 define('APP_DIR', ROOT_DIR . '/app');
-
-/**
- * Directory of where our runtime components are held
- */
+define('WEB_DIR', ROOT_DIR . '/web');
 define('RUNTIME_DIR', ROOT_DIR . '/runtime');
-
-/** @var string Document Root */
-$webroot_dir = $root_dir . '/web';
 
 /**
  * Expose global env() function from oscarotero/env
@@ -61,7 +56,7 @@ define('WP_SITEURL', env('WP_SITEURL'));
  * Custom Content Directory
  */
 define('CONTENT_DIR', '/app');
-define('WP_CONTENT_DIR', $webroot_dir . CONTENT_DIR);
+define('WP_CONTENT_DIR', WEB_DIR . CONTENT_DIR);
 define('WP_CONTENT_URL', WP_HOME . CONTENT_DIR);
 
 /**
@@ -111,5 +106,5 @@ define('AS3CF_BUCKET', 'mcgrath-main-' . WP_ENV);
  * Bootstrap WordPress
  */
 if (!defined('ABSPATH')) {
-    define('ABSPATH', $webroot_dir . '/wp/');
+    define('ABSPATH', WEB_DIR . '/wp/');
 }

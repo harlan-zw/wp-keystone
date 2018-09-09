@@ -4,31 +4,55 @@ WordPress Keystone
 Wordpress Keystone is a WordPress boilerplate designed for quickly building effective 
 [twelve-factor applications](https://12factor.net/) 
 
-Why WordPress Keystone?
+#### **Why WordPress Keystone?**
 - Development environment ready to go with docker
-- Asset building with webpack 
-- Ease of use at the core design 
-- All-in-one solution ready to build your next site 
+- Asset building with Laravel Mix
+- Component design at the core
+- Workflows built around git hooks 
+- Automatic testing ready to go 
 
-It is built on top of many existing projects:
+WordPress Keystone is the combination of many libraries, taking inspiration and straight
+code from them. If you are confused on how some of the parts of this project work,
+checkout the following projects:
 - [Laradock](https://github.com/laradock/laradock) - Docker
-- [Sage](https://github.com/roots/bedrock) - Architecture and Webpack
+- [Sage](https://github.com/roots/sage) - Architecture
 - [Bedrock](https://github.com/roots/bedrock) - Architecture
-- [Laravel components](https://github.com/mattstauffer/Torch)
-- [Wordhat](https://github.com/paulgibbs/behat-wordpress-extension/)
-- [WP Function Me](http://www.wpfunction.me/)
-- [Composer Git Hooks](http://change-me/)
+- [Laravel components](https://github.com/mattstauffer/Torch) - Laravel packages
+- [Wordhat](https://github.com/paulgibbs/behat-wordpress-extension/) - Automated testing
+- [WP Function Me](http://www.wpfunction.me/) - Random snippets
+- [Composer Git Hooks](http://change-me/) - Workflow triggers
+- [Laravel Mix](https://github.com/JeffreyWay/laravel-mix) - Asset Builds
+
+#### **Project Structure**
+
+`app` - Project functionality 
+
+`app/components` - This is the bread and butter of the boilerplate. All your code you would usually stick
+in `functions.php` lives here. WordPress Keystone wil automatically parse folders within the `components` folder 
+and have the files contained loaded under their wordpress filter or hook. 
+This forces developers to think about when there code is being executed within the WordPress runtime. 
+
+`config` - All application configuration is found here including constant definition and bootstrapping
+
+`env` - Environment based files. Mainly docker configuration and tools are found within here.  
+
+`features` - Behat tests
+
+`resources` - Most importantly, your view files are found here as well as styles and scripts.
+
+`runtime` - Any application runtime files live here, besides uploads.   
+
+`web` - This is your web root. Avoid putting anything in here if you can.
+
 
 Setup
 -------------
 
-#### **Environment**
-
-This project utilizes [docker](https://www.docker.com/) for all its local development, before starting the setup make sure you have it installed.
-
 #### **Boilerplate Instructions**
 
-First Run a search & replace for the following:
+Install: `composer create-project loonpwn/wp-keystone project-name`
+
+First Run a search and replace for the following:
  - Your site url: `local.wp-keystone` -> local.your-domain
  - Your project title: `Wordpress Keystone` -> Your Project Name
  - Your project slug (docker): `wp-keystone` -> your-project-slug 
@@ -36,6 +60,8 @@ First Run a search & replace for the following:
 Then delete this section from the readme.
 
 #### **Instructions**
+
+Note: this project uses [docker](https://www.docker.com/) for all its local development.
 
 _Start Proxy_
 ```
@@ -61,15 +87,6 @@ This project uses a docker container which will host our site for us and be able
 - `docker-compose restart` - Restart the container
 - `docker exec -it project-slug bash` - Attach yourself to the container
 
-#### **Plugins**
-
-All 3rd party plugins are ideally included via composer within the `composer.json` file. For finding plugins check out the [wpackagist](https://wpackagist.org/). 
-If you are working on a custom plugin checkout the plugin boilerplate that's available [here](https://bitbucket.org/harlan_wilton/plugin-boilerplate/overview).
-
-#### **WP-CLI**
-
-If you setup your ssh credentials in the `wp-cli.yml` file you are able to alias your environments and perform commands on them! Below are a few handy commands.
-
 #### **Migrations**
 
 Copy live data to your local environment
@@ -81,9 +98,9 @@ Testing
 
 #### **Automated Testing**
 
-Automated tested is setup using behat. To get it working properly you need to run a selenium server which 
-has been supplied in the form of a composer package. For this to work you'll need to copy over
-the drivers. This has to be done outside of docker at the moment. 
+Automated tested is setup using wordhat.
 
 1. Run the server `composer selenium`
 2. Run tests `composer test`
+
+To see the test output run `composer vnc`. The password is `vnc123`
