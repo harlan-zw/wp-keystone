@@ -30,4 +30,6 @@ return [
 
 
 	'compiled' => RUNTIME_DIR . '/blade',
+
+	'namespaces' => [],
 ];

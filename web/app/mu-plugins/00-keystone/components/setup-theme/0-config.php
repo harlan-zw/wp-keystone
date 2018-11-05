@@ -12,11 +12,18 @@ app()->singleton('config', function() {
 	return new Repository($files);
 });
 
+
 /**
  * Get the specified configuration value.
  ***
+ *
+ * @param null|string $index The config index
+ *
  * @return Repository
  */
-function config() {
+function config($index = null) {
+	if (!empty($index)) {
+		return app('config')->get($index);
+	}
 	return app('config');
 }
