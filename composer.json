@@ -1,8 +1,10 @@
 {
     "name": "harlanzw/wp-keystone",
-    "type": "project",
+    "type": "boilerplate",
     "version": "0.5",
     "license": "MIT",
+    "description": "Wordpress Keystone is a WordPress boilerplate designed for quickly building effective twelve-factor applications",
+    "keywords": ["wordpress boilerplate", "wordpress laravel", "bedrock", "sage"],
     "authors": [
         {
             "name": "Harlan Wilton",
