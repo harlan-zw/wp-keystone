@@ -1,13 +1,5 @@
 <?php
-/*
-Plugin Name:  Fix Wordpress common issues
-Plugin URI:   http://www.4mation.com.au/
-Description:  Fixes common Wordpress issues, these are found from wpfixme and other sources.
-Version:      1.0.0
-Author:       Harlan Wilton
-Author URI:   http://www.4mation.com.au/
-License:      MIT License
-*/
+namespace App;
 
 class FixMyWP {
 
@@ -21,17 +13,21 @@ class FixMyWP {
     /**
      * Replaces the WordPress jQuery version with the latest + the migration dependency.
      */
-    public static function jquery_enqueue() {
-        add_action('wp_enqueue_scripts', function () {
+    public static function jquery_enqueue($config = []) {
+        add_action('wp_enqueue_scripts', function () use ($config) {
             if (is_admin() || is_login_page()) {
                 return;
             }
             wp_deregister_script('jquery');
             wp_deregister_script('jquery-migrate');
-            $min = is_env_dev() ? '' : 'min.';
-            wp_register_script('jquery', '//code.jquery.com/jquery-3.2.1.' . $min . 'js', false, null, true);
-            wp_register_script('jquery-migrate', '//code.jquery.com/jquery-migrate-3.0.0.' . $min . 'js',
-                false, null, true);
+            $jQueryCDN = $config['jquery_cdn_url'];
+            $jQueryMigrateCDN = $config['jquery_migrate_cdn_url'];
+            if (is_env_dev()) {
+                $jQueryCDN = str_replace('min.', '', $jQueryCDN);
+                $jQueryMigrateCDN = str_replace('min.', '', $jQueryMigrateCDN);
+            }
+            wp_register_script('jquery', $jQueryCDN, false, null, true);
+            wp_register_script('jquery-migrate', $jQueryMigrateCDN, false, null, true);
             wp_enqueue_script('jquery');
             wp_enqueue_script('jquery-migrate');
         }, 11);
@@ -87,14 +83,6 @@ class FixMyWP {
         add_action('wp_footer', 'wp_print_scripts', 5);
     }
 
-    public static function force_oembed_width() {
-        global $content_width;
-        // Set a maximum width for Oembedded objects
-        if (!isset($content_width)) {
-            $content_width = 660;
-        }
-    }
-
     public static function remove_wp_version() {
         remove_action('wp_head', 'wp_generator');
     }
@@ -144,41 +132,39 @@ class FixMyWP {
 
 }
 
-/* utility functions */
-function is_env_dev() {
-    return WP_ENV == 'development';
-}
-
-function is_env_production() {
-    return !is_env_dev() && !is_env_staging() && !is_env_test() && !is_env_uat();
-}
-
-function is_env_uat() {
-	return WP_ENV == 'uat';
-}
-
-function is_env_staging() {
-    return WP_ENV == 'staging';
-}
-
-function is_env_test() {
-    return WP_ENV == 'behat';
-}
-
-function is_login_page() {
-    return in_array($GLOBALS['pagenow'], array('wp-login.php', 'wp-register.php'));
-}
+$fix_wp_config = config('keystone.fix-wp');
 
 // Put in the functions we want to run here
-FixMyWP::remove_img_ptags();
-FixMyWP::jquery_enqueue();
-FixMyWP::IEhtml5_shim();
-FixMyWP::remove_script_versions();
-FixMyWP::disable_emojis();
-FixMyWP::clean_head();
-FixMyWP::force_footer_scripts();
-FixMyWP::force_oembed_width();
-FixMyWP::remove_wp_version();
-FixMyWP::include_pollyfill_io();
-FixMyWP::nice_body_classes();
-FixMyWP::remove_empty_p_tags();
+if ($fix_wp_config->get('remove_img_p_tags')) {
+    FixMyWP::remove_img_ptags();
+}
+if ($fix_wp_config->get('jquery.use_cdn')) {
+    FixMyWP::jquery_enqueue($fix_wp_config->get('jquery'));
+}
+if ($fix_wp_config->get('use_html5_shim_for_ie')) {
+    FixMyWP::IEhtml5_shim();
+}
+if ($fix_wp_config->get('remove_script_versions')) {
+    FixMyWP::remove_script_versions();
+}
+if ($fix_wp_config->get('disable_emojis')) {
+    FixMyWP::disable_emojis();
+}
+if ($fix_wp_config->get('clean_head_output')) {
+    FixMyWP::clean_head();
+}
+if ($fix_wp_config->get('force_scripts_in_footer')) {
+    FixMyWP::force_footer_scripts();
+}
+if ($fix_wp_config->get('remove_wp_version')) {
+    FixMyWP::remove_wp_version();
+}
+if ($fix_wp_config->get('use_pollyfill_io')) {
+    FixMyWP::include_pollyfill_io();
+}
+if ($fix_wp_config->get('use_pollyfill_io')) {
+    FixMyWP::nice_body_classes();
+}
+if ($fix_wp_config->get('remove_empty_p_tags')) {
+    FixMyWP::remove_empty_p_tags();
+}

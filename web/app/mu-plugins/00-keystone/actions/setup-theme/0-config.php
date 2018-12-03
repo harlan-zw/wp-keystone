@@ -1,7 +1,6 @@
 <?php
 namespace App;
 
-
 use Illuminate\Config\Repository;
 
 app()->singleton('config', function() {
@@ -12,18 +11,15 @@ app()->singleton('config', function() {
 	return new Repository($files);
 });
 
-
 /**
  * Get the specified configuration value.
  ***
- *
- * @param null|string $index The config index
- *
  * @return Repository
  */
 function config($index = null) {
-	if (!empty($index)) {
-		return app('config')->get($index);
-	}
+    if (!empty($index)) {
+        return app('config')->get($index);
+    }
 	return app('config');
 }
+

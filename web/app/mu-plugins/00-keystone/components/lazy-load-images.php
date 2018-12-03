@@ -1,13 +1,4 @@
 <?php
-/*
-Plugin Name:  Lazy Load
-Plugin URI:   http://www.4mation.com.au/
-Description:  Lazy load images, iframes and more
-Version:      1.0.0
-Author:       Harlan Wilton
-Author URI:   http://www.4mation.com.au/
-License:      MIT License
-*/
 
 $do_lazy_load = true;
 

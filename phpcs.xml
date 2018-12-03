@@ -31,7 +31,6 @@
 
     <!-- Rules - Extend from PSR2 -->
     <rule ref="PSR2">
-
         <!-- Rules to ignore from PSR2 -->
         <exclude name="Generic.WhiteSpace.DisallowTabIndent.TabsUsed"/>
         <exclude name="PSR2.Files.EndFileNewline.NoneFound"/>

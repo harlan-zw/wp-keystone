@@ -1,13 +1,5 @@
 <?php
 
-/*
-Plugin Name: Bottom Admin Bar
-Plugin URI: 4mation
-Description: While you are logged in to WordPress, this plugin will move to the bottom the admin bar that is displayed on the web site.
-Version: 1.3
-Author: modshrink
-*/
-
 add_action('wp_head', function() {
     if (!is_user_logged_in()) {
         return;

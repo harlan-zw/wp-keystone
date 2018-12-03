@@ -2,8 +2,6 @@
 
 namespace App;
 
-use Illuminate\Support\Str;
-
 /**
  * Page titles
  * @return string
@@ -13,16 +11,16 @@ function title() {
         if ($home = get_option('page_for_posts', true)) {
             return get_the_title($home);
         }
-        return __('Latest Posts', 'sage');
+        return __('Latest Posts', 'wp-keystone');
     }
     if (is_archive()) {
         return get_the_archive_title();
     }
     if (is_search()) {
-        return sprintf(__('Search Results for %s', 'sage'), get_search_query());
+        return sprintf(__('Search Results for %s', 'wp-keystone'), get_search_query());
     }
     if (is_404()) {
-        return __('Not Found', 'sage');
+        return __('Not Found', 'wp-keystone');
     }
     return get_the_title();
 }
@@ -73,39 +71,6 @@ function get_alt_logo_markup($class) {
     return wp_get_attachment_image($field['ID'], ['110', '67'], false, [
         'class' => 'logo ' . $class
     ]);
-}
-
-
-/**
- * Format a phone number to be tel URI scheme consistent
- *
- * 1. Strip all non-digits
- * 2. Only prefix with a + if the phone number already contains a prefix.
- *
- * @param string $phone_number
- * @param string $prefix
- * @return string
- */
-function get_URI_formatted_phone_number($phone_number) {
-
-    // always strip spaces
-    $phone_number = str_replace(' ', '', $phone_number);
-    // Only prefix it if it doesn't start with a 1300
-    if (!Str::startsWith($phone_number, '1300')
-        && !Str::startsWith($phone_number, '0800')
-        && !Str::startsWith($phone_number, '+')) {
-        $URI_formatted_phone_number = $phone_number;
-        // if first character is a 0 - we drop it
-        if (Str::startsWith($phone_number, '0')) {
-            $URI_formatted_phone_number =
-                Str::substr($URI_formatted_phone_number, 1, strlen($URI_formatted_phone_number) - 1);
-        }
-        // get rid of spaces and non digits
-        $URI_formatted_phone_number = preg_replace('/[^\d]/', '', $URI_formatted_phone_number);
-        return get_option_page_value(OPTION_PAGE_PHONE_PREFIX) . $URI_formatted_phone_number;
-    }
-
-    return $phone_number;
 }
 
 

@@ -7,7 +7,11 @@ return [
 	| Rewrite Rules
 	|--------------------------------------------------------------------------
 	|
-	| This is the regex to match and what the server should see
+	| The rules used by WordPress to redirect the user to the correct posts.
+	| The format of this should be matching <url> => <wordpress query>. For
+	| example:
+	|
+	| '^/page_to_redirect' => 'index.php?id=1'
 	|
 	*/
 	'rules' => [
@@ -19,7 +23,9 @@ return [
 	| Query Vars
 	|--------------------------------------------------------------------------
 	|
-	| This is the regex to match and what the server should see
+	| Think of these as additional parameters you can pass into the GET request
+	| you just need to register them so that WordPress will pass them and you
+	| can use them within the WP_Query
 	|
 	*/
 	'query_vars' => [

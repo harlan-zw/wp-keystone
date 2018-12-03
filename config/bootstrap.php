@@ -34,11 +34,8 @@ if (file_exists($root_dir . '/.env')) {
  * Set up our global environment constant and load its config first
  * Default: production
  */
-if (!empty($_COOKIE) && isset($_COOKIE['X-IS-SELENIUM'])) {
-	define('WP_ENV', 'behat');
-} else {
-	define('WP_ENV', env('WP_ENV') ?: 'production');
-}
+define('WP_ENV', env('WP_ENV') ?: 'production');
+
 
 $env_config = __DIR__ . '/environments/' . WP_ENV . '.php';
 
@@ -83,24 +80,13 @@ define('LOGGED_IN_SALT', env('LOGGED_IN_SALT'));
 define('NONCE_SALT', env('NONCE_SALT'));
 
 /**
- * Mailgun Settings
- */
-define('MAILGUN_USEAPI', env('MAILGUN_USEAPI'));
-define('MAILGUN_APIKEY', env('MAILGUN_APIKEY'));
-define('MAILGUN_DOMAIN', env('MAILGUN_DOMAIN'));
-
-/**
  * Custom Settings
  */
 define('AUTOMATIC_UPDATER_DISABLED', true);
 define('DISABLE_WP_CRON', env('DISABLE_WP_CRON') ?: false);
 define('DISALLOW_FILE_EDIT', true);
 
-// aws config
-define('AWS_ACCESS_KEY_ID', env('AWS_ACCESS_KEY_ID'));
-define('AWS_SECRET_ACCESS_KEY', env('AWS_SECRET_ACCESS_KEY'));
-// s3 config
-define('AS3CF_BUCKET', 'mcgrath-main-' . WP_ENV);
+
 
 /**
  * Bootstrap WordPress

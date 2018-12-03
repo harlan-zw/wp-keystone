@@ -1,14 +1,14 @@
 <?php
-/*
-Plugin Name: Deferred Scripts
-Plugin URI: 4mation
-Description: All scripts loaded in are deferred until the DOM is rendered
-Version: 1.3
-Author: harlan
-*/
+namespace App;
 
-// only fronte
+// only frontend
 if (is_admin()) {
+    return;
+}
+
+// allow script deferring to be toggled off
+$defer_scripts = config('assets.defer_scripts');
+if (!$defer_scripts) {
     return;
 }
 

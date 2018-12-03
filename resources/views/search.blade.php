@@ -5,7 +5,7 @@
 
   @if (!have_posts())
     <div class="alert alert-warning">
-      {{ __('Sorry, no results were found.', 'sage') }}
+      {{ __('Sorry, no results were found.', 'wp-keystone') }}
     </div>
     {!! get_search_form(false) !!}
   @endif

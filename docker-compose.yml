@@ -1,15 +1,9 @@
-# This is a slightly deviated instance of laradock. We are using proxy as the external network to host all of running
-# apache instances. See the readme if you are getting docker errors
-
-version: "3.3"
+version: "3"
 
 ### Network Setup #############################################
 networks:
     backend:
         driver: bridge
-    # This is our docker proxy network and exposes port 80 and 443
-    proxy:
-        external: true
 
 
 ### Volumes Setup #############################################
@@ -115,11 +109,12 @@ services:
       environment:
            - VIRTUAL_HOST=${WP_HOME}
            - HTTPS_METHOD=noredirect
+      ports:
+        - "${APACHE_HOST_HTTP_PORT}:80"
       depends_on:
         - php-fpm
       networks:
         - backend
-        - proxy
 
 ### PHP-FPM Container #######################################
 
@@ -166,15 +161,3 @@ services:
         - PHP_IDE_CONFIG=${PHP_IDE_CONFIG}
       networks:
         - backend
-
-
-    selenium-chrome:
-      container_name: "wp-keystone-selenium"
-      image: selenium/standalone-chrome-debug:3.4
-      external_links:
-          - proxy:local.wp-keystone
-      ports:
-          - "5900:5900"
-      networks:
-          - backend
-          - proxy

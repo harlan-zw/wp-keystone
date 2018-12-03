@@ -1,13 +1,4 @@
 <?php
-/*
-Plugin Name:  Force Mailtrap
-Plugin URI:   http://www.4mation.com.au/
-Description:  Forces mailtrap on staging and local environments
-Version:      1.0.0
-Author:       Harlan Wilton
-Author URI:   http://www.4mation.com.au/
-License:      MIT License
-*/
 if (is_env_production()) {
     return;
 }

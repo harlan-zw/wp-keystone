@@ -79,7 +79,7 @@ if (mix.inProduction()) {
  |
  */
 const distPath = 'web/dist';
-const assetPath = 'resources/assets';
+const assetPath = 'resources';
 
 // frontend assets
 mix

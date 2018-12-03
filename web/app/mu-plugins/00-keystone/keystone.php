@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: Keystone
+ * Plugin Name: WordPress Keystone
  * Plugin URI: https://github.com/roots/bedrock/
  * Description: Core functions for the keystone boilerplate
  * Version: 1.0.0

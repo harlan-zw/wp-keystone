@@ -26,4 +26,38 @@ return [
     */
 
     'uri' => WEB_DIR . '/dist',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Public Assets Key
+    |--------------------------------------------------------------------------
+    |
+    | The naming of the main.css and main.js, this can be changed to anything
+    |
+    */
+
+    'public_assets_key' => 'main',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Admin Assets Key
+    |--------------------------------------------------------------------------
+    |
+    | The naming of the admin.css and admin.js, this can be changed to anything
+    |
+    */
+
+    'admin_assets_key' => 'admin',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Defer All Scripts
+    |--------------------------------------------------------------------------
+    |
+    | Make sure we only start loading our scripts when the rest of the page
+    | has finished loading
+    |
+    */
+
+    'defer_scripts' => true,
 ];
