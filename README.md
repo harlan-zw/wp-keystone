@@ -60,10 +60,14 @@ Then delete this section from the readme.
 Note: this project uses [docker](https://www.docker.com/) for all its local development.
 
 _Local Setup_
-1. Copy over the env file `cp -n env/.env.local .env`
-2. Copy over the htaccess `cp -n web/.htaccess.local web/.htaccess`
-3. Setup docker containers `docker-compose up -d`
-4. Setup your hosts file. `sudo sh -c 'echo "127.0.0.1       local.wp-keystone" >> /etc/hosts'`
+1. Copy over the env file `cp -n .env.example .env`
+2. Copy over the htaccess `cp -n web/.htaccess.sample web/.htaccess`
+3. Build & docker containers `docker-compose up -d`
+
+   _Note: If you are already running apache or mysql on ports 80 / 3306, you can change the ports docker runs on in the 
+   `.env` file, otherwise close your other applications_
+   
+ 4. Setup your hosts file. `sudo sh -c 'echo "127.0.0.1       local.wp-keystone" >> /etc/hosts'`
 5. Mount yourself to the workspace `./env/mount-workspace.sh`
 6. Run the deployment script `composer build`
 

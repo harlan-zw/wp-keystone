@@ -60,7 +60,7 @@
         ],
         "post-install-cmd": "cghooks add --ignore-lock",
         "post-update-cmd": "cghooks update",
-        "build": "./env/tools/build.sh",
+        "build": "./env/tools/build-assets.sh",
         "lint": [
             "phpcbf -n",
             "phpcs --warning-severity=6"

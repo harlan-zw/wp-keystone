@@ -1,6 +1,8 @@
 <?php
 namespace App;
 
+// Note: If you want to use comments then delete this file
+
 // hide from the menu
 add_action('admin_menu', function() {
     // Always hide posts and comments
