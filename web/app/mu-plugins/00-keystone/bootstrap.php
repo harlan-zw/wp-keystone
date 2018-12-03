@@ -117,7 +117,7 @@ function load_keystone_directory($directory)
                     require_once $components_path."{$file}.php";
                 }
             });
-    });
+    }, 2);
 
     $preload_files
         ->map(function ($file) use ($directory) {

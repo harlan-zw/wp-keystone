@@ -36,6 +36,7 @@
         "league/flysystem": "^1.0",
         "oscarotero/env": "^1.1.0",
         "roots/sage-lib": "^9.0.5",
+        "symfony/var-dumper": "^4.2",
         "vlucas/phpdotenv": "^2.4.0"
     },
     "require-dev": {
@@ -46,7 +47,8 @@
     "extra": {
         "installer-paths": {
             "web/app/mu-plugins/{$name}/": [
-                "type:wordpress-muplugin"
+                "type:wordpress-muplugin",
+                "wpackagist-plugin/easy-development"
             ],
             "web/app/plugins/{$name}/": ["type:wordpress-plugin"],
             "web/app/themes/{$name}/": ["type:wordpress-theme"]
