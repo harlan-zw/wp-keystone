@@ -53,7 +53,7 @@ function do_yarn_build() {
 }
 
 function clear_caches() {
-  wp cache flush --allow-root
+  wp cache flush --allow-root || true
 #  wp total-cache flush all
 # w3 total cache
 
@@ -72,6 +72,10 @@ do_composer_install
 echo -e ""
 
 do_yarn_install
+
+echo -e ""
+
+do_yarn_build
 
 echo -e ""
 

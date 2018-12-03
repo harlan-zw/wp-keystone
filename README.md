@@ -70,7 +70,14 @@ _Local Setup_
  4. Setup your hosts file. `sudo sh -c 'echo "127.0.0.1       local.wp-keystone" >> /etc/hosts'`
 5. Mount yourself to the workspace `./env/mount-workspace.sh`
 6. Run the deployment script `composer build`
+7. Install WordPress `wp core install --url=local.bensanfordmedia.com --title="WordPress Keystone" --admin_user="bsm" --admin_email="admin@local.bensanfordmedia.com"`
+   
+   _Note: This command will output the admin password_
+   
+8. Done. You can visit the site at `http://local.bensanfordmedia.com`. 
 
+    _Note: Admin login is at `http://local.bensanfordmedia.com/wp/wp-admin` and login with `bsm`. The local environment does not
+    check for a valid password so you can enter in anything._
 
 Development 
 -------------
