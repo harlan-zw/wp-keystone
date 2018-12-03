@@ -95,12 +95,17 @@ function load_keystone_directory($directory) {
         $preload_files = $preload_files->merge(get_files_recursive($directory . '/commands', '/\.php$/'));
     }
     // components directory
-    $components_path = $directory . '/components';
-    $preload_files->merge(collect(get_files_recursive($components_path, '/\.php$/'))
-        // clean the files / paths
-        ->map(function($file) use ($components_path) {
-            return str_replace([ '.php', $components_path ], '', $file);
-        })->toArray());
+    add_action('init', function() use ($directory) {
+        $components_path = $directory . '/components';
+        collect(get_files_recursive($components_path, '/\.php$/'))
+            // clean the files / paths
+            ->map(function($file) use ($components_path) {
+                return str_replace([ '.php', $components_path ], '', $file);
+            })->each(function($file) use ($components_path) {
+                require_once $components_path . "{$file}.php";
+            });
+    });
+
 
     $preload_files
         ->map(function ($file) use ($directory) {

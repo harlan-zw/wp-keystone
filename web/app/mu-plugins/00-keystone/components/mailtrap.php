@@ -1,4 +1,6 @@
 <?php
+namespace App;
+
 if (is_env_production()) {
     return;
 }

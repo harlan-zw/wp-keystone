@@ -28,13 +28,13 @@ $public_assets_key = config('assets.public_assets_key');
 // Frontend assets
 wp_enqueue_style(
     'app/' . $public_assets_key . '.css',
-    asset_path('styles/' . $public_assets_key . '.css'),
+    asset_path($public_assets_key . '.css'),
     [],
     null
 );
 wp_enqueue_script(
     'app/' . $public_assets_key . '.js',
-    asset_path('scripts/' . $public_assets_key . '.js'),
+    asset_path($public_assets_key . '.js'),
     ['jquery'],
     null,
     true

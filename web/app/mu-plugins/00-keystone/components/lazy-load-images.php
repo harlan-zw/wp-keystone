@@ -1,5 +1,4 @@
 <?php
-
 $do_lazy_load = true;
 
 function stop_lazy_loading() {

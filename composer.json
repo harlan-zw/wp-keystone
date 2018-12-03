@@ -37,10 +37,6 @@
         "vlucas/phpdotenv": "^2.4.0"
     },
     "require-dev": {
-        "behat/mink": "^1.7.1",
-        "behat/mink-goutte-driver": "^1.2",
-        "behat/mink-selenium2-driver": "^1.3.1",
-        "paulgibbs/behat-wordpress-extension": "^3.0.0",
         "squizlabs/php_codesniffer": "^3.1.0",
         "wpackagist-plugin/easy-development": "^1.0.5",
         "wpackagist-plugin/query-monitor": "^3.0.0"
@@ -62,12 +58,10 @@
         ],
         "post-install-cmd": "cghooks add --ignore-lock",
         "post-update-cmd": "cghooks update",
-        "test": "behat --colors --stop-on-failure -v",
         "build": "./env/tools/build.sh",
         "lint": [
             "phpcbf -n",
             "phpcs --warning-severity=6"
-        ],
-        "vnc": "vncviewer 127.0.0.1:5900 -passwd env/vncpasswd"
+        ]
     }
 }

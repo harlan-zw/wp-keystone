@@ -132,13 +132,13 @@ class FixMyWP {
 
 }
 
-$fix_wp_config = config('keystone.fix-wp');
+$fix_wp_config = collect(config('keystone.fix_wp'));
 
 // Put in the functions we want to run here
 if ($fix_wp_config->get('remove_img_p_tags')) {
     FixMyWP::remove_img_ptags();
 }
-if ($fix_wp_config->get('jquery.use_cdn')) {
+if ($fix_wp_config->get('jquery')['use_cdn']) {
     FixMyWP::jquery_enqueue($fix_wp_config->get('jquery'));
 }
 if ($fix_wp_config->get('use_html5_shim_for_ie')) {
