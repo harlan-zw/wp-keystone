@@ -7,9 +7,8 @@ Wordpress Keystone is a WordPress boilerplate designed for quickly building effe
 #### **Why WordPress Keystone?**
 - Development environment ready to go with docker
 - Asset building with Laravel Mix
-- Component design at the core
-- Workflows built around git hooks 
-- Automatic testing ready to go 
+- Component / action design at the core
+- Sane assumptions about how you want to use it
 
 WordPress Keystone is the combination of many libraries, taking inspiration and straight
 code from them. If you are confused on how some of the parts of this project work,
@@ -18,7 +17,6 @@ checkout the following projects:
 - [Sage](https://github.com/roots/sage) - Architecture
 - [Bedrock](https://github.com/roots/bedrock) - Architecture
 - [Laravel components](https://github.com/mattstauffer/Torch) - Laravel packages
-- [Wordhat](https://github.com/paulgibbs/behat-wordpress-extension/) - Automated testing
 - [WP Function Me](http://www.wpfunction.me/) - Random snippets
 - [Composer Git Hooks](http://change-me/) - Workflow triggers
 - [Laravel Mix](https://github.com/JeffreyWay/laravel-mix) - Asset Builds
@@ -35,8 +33,6 @@ This forces developers to think about when there code is being executed within t
 `config` - All application configuration is found here including constant definition and bootstrapping
 
 `env` - Environment based files. Mainly docker configuration and tools are found within here.  
-
-`features` - Behat tests
 
 `resources` - Most importantly, your view files are found here as well as styles and scripts.
 
@@ -55,19 +51,13 @@ Install: `composer create-project loonpwn/wp-keystone project-name`
 First Run a search and replace for the following:
  - Your site url: `local.wp-keystone` -> local.your-domain
  - Your project title: `Wordpress Keystone` -> Your Project Name
- - Your project slug (docker): `wp-keystone` -> your-project-slug 
+ - Your project slug: `wp-keystone` -> your-project-slug 
  
 Then delete this section from the readme.
 
 #### **Instructions**
 
 Note: this project uses [docker](https://www.docker.com/) for all its local development.
-
-_Start Proxy_
-```
-docker network create -d bridge proxy
-docker run -d --name proxy -p 80:80 --network="proxy" -v /var/run/docker.sock:/tmp/docker.sock:ro jwilder/nginx-proxy
-```
 
 _Local Setup_
 1. Copy over the env file `cp -n env/.env.local .env`
@@ -83,24 +73,7 @@ Development
 
 #### **Docker**
 
-This project uses a docker container which will host our site for us and be able to build all of our assets for us. Some useful commands:
+This project uses a docker container which will host our site for us and be able to build all of our assets for us.
+Some useful commands:
 - `docker-compose restart` - Restart the container
-- `docker exec -it project-slug bash` - Attach yourself to the container
-
-#### **Migrations**
-
-Copy live data to your local environment
-`wp @live db export - | wp @local db import -`
-
-
-Testing 
--------------
-
-#### **Automated Testing**
-
-Automated tested is setup using wordhat.
-
-1. Run the server `composer selenium`
-2. Run tests `composer test`
-
-To see the test output run `composer vnc`. The password is `vnc123`
+- `./env/mount-workspace.sh` - Attach yourself to the workspace container
