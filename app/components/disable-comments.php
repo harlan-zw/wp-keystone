@@ -21,26 +21,18 @@ add_action('admin_init', function() {
     }
 });
 
-add_filter(
-    'comments_open',
-    function() {
-        return false;
-    },
-    20,
-    2
-);
+add_filter('comments_open', function() {
+    return false;
+}, 20, 2);
 
-add_filter(
-    'pings_open',
-    function() {
-        return false;
-    },
-    20,
-    2
-);
+add_filter('pings_open', function() {
+    return false;
+}, 20, 2);
 
 // Hide existing comments
-add_filter('comments_array', function() { return []; }, 10, 2);
+add_filter('comments_array', function() {
+    return [];
+}, 10, 2);
 
 // Redirect any user trying to access comments page
 add_action('admin_init', function() {

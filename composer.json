@@ -63,7 +63,7 @@
         "build": "./env/tools/build-assets.sh",
         "lint": [
             "phpcbf -n",
-            "phpcs --warning-severity=6"
+            "phpcs"
         ]
     }
 }
