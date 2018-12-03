@@ -68,7 +68,6 @@ return [
             'jquery_migrate_cdn_url' => '//code.jquery.com/jquery-3.2.1.min.js',
         ],
 
-
         /*
         |--------------------------------------------------------------------------
         | Use HTML5 Shim For IE
@@ -163,7 +162,7 @@ return [
         | Will remove <p></p> from WYSIWYG output
         |
         */
-        'remove_empty_p_tags' => true
-    ]
+        'remove_empty_p_tags' => true,
+    ],
 
 ];

@@ -1,4 +1,5 @@
 <?php
+
 namespace App;
 
 // allow script deferring to be toggled off
@@ -7,7 +8,7 @@ if (!$menus) {
     return;
 }
 
-/**
+/*
  * Register navigation menus
  */
 register_nav_menus($menus);

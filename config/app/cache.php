@@ -8,16 +8,16 @@ return [
     |
     */
     'default' => 'transient',
-    'stores' => [
+    'stores'  => [
 
         'transient' => [
-            'driver' => 'transient'
+            'driver' => 'transient',
         ],
 
         'file' => [
             'driver' => 'file',
-            'path' => RUNTIME_DIR . '/cache'
-        ]
+            'path'   => RUNTIME_DIR.'/cache',
+        ],
 
     ],
 

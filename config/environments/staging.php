@@ -1,4 +1,5 @@
 <?php
+
 /** Development */
 define('SAVEQUERIES', true);
 define('WP_DEBUG', true);

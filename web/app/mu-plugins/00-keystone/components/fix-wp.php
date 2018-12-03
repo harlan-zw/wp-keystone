@@ -1,10 +1,12 @@
 <?php
+
 namespace App;
 
-class FixMyWP {
-
+class FixMyWP
+{
     // Stop images getting wrapped up in p tags when they get dumped out with the_content() for easier theme styling
-    public static function remove_img_ptags() {
+    public static function remove_img_ptags()
+    {
         add_filter('the_content', function ($content) {
             return preg_replace('/<p>\s*(<a .*>)?\s*(<img .* \/>)\s*(\/a>)?\s*<\/p>/iU', '\1\2\3', $content);
         });
@@ -13,7 +15,8 @@ class FixMyWP {
     /**
      * Replaces the WordPress jQuery version with the latest + the migration dependency.
      */
-    public static function jquery_enqueue($config = []) {
+    public static function jquery_enqueue($config = [])
+    {
         add_action('wp_enqueue_scripts', function () use ($config) {
             if (is_admin() || is_login_page()) {
                 return;
@@ -33,9 +36,9 @@ class FixMyWP {
         }, 11);
     }
 
-
-// Call Googles HTML5 Shim, but only for users on old versions of IE
-    public static function IEhtml5_shim() {
+    // Call Googles HTML5 Shim, but only for users on old versions of IE
+    public static function IEhtml5_shim()
+    {
         global $is_IE;
 
         add_action('wp_head', function () use ($is_IE) {
@@ -45,10 +48,11 @@ class FixMyWP {
         });
     }
 
-    public static function remove_script_versions() {
-
+    public static function remove_script_versions()
+    {
         $strip_var = function ($src) {
             $parts = explode('?ver', $src);
+
             return $parts[0];
         };
 
@@ -56,7 +60,8 @@ class FixMyWP {
         add_filter('style_loader_src', $strip_var, 15, 1);
     }
 
-    public static function disable_emojis() {
+    public static function disable_emojis()
+    {
         /* Disable emoji scripts */
         remove_action('admin_print_styles', 'print_emoji_styles');
         remove_action('wp_head', 'print_emoji_detection_script', 7);
@@ -67,7 +72,8 @@ class FixMyWP {
         remove_filter('comment_text_rss', 'wp_staticize_emoji');
     }
 
-    public static function clean_head() {
+    public static function clean_head()
+    {
         /* remove useless header tags */
         remove_action('wp_head', 'wp_generator');
         remove_action('wp_head', 'wlwmanifest_link');
@@ -77,59 +83,63 @@ class FixMyWP {
         remove_action('wp_head', 'feed_links_extra');
     }
 
-    public static function force_footer_scripts() {
+    public static function force_footer_scripts()
+    {
         /* move scripts to footer */
         remove_action('wp_head', 'wp_print_scripts');
         add_action('wp_footer', 'wp_print_scripts', 5);
     }
 
-    public static function remove_wp_version() {
+    public static function remove_wp_version()
+    {
         remove_action('wp_head', 'wp_generator');
     }
 
-	public static function remove_empty_p_tags() {
-    	add_filter('the_content', function($content) {
-		    $content = force_balance_tags( $content );
-		    $content = preg_replace( '#<p>\s*+(<br\s*/*>)?\s*</p>#i', '', $content );
-		    $content = preg_replace( '~\s?<p>(\s| )+</p>\s?~', '', $content );
-		    return $content;
-	    }, 999, 1);
-	}
+    public static function remove_empty_p_tags()
+    {
+        add_filter('the_content', function ($content) {
+            $content = force_balance_tags($content);
+            $content = preg_replace('#<p>\s*+(<br\s*/*>)?\s*</p>#i', '', $content);
+            $content = preg_replace('~\s?<p>(\s| )+</p>\s?~', '', $content);
 
-    public static function include_pollyfill_io() {
+            return $content;
+        }, 999, 1);
+    }
+
+    public static function include_pollyfill_io()
+    {
         add_action('wp_enqueue_scripts', function () {
             if (is_admin() || is_login_page()) {
                 return;
             }
             $min = is_env_dev() ? '' : 'min.';
-            wp_register_script('pollyfill.io', 'https://cdn.polyfill.io/v2/polyfill.' . $min . 'js');
+            wp_register_script('pollyfill.io', 'https://cdn.polyfill.io/v2/polyfill.'.$min.'js');
 
             wp_enqueue_script('pollyfill.io');
         });
     }
 
-    public static function nice_body_classes() {
-	    /**
-	     * Add <body> classes
-	     */
-	    add_filter('body_class', function(array $classes) {
-		    /** Add page slug if it doesn't exist */
-		    if (is_single() || (is_page() && !is_front_page())) {
-			    if (!\in_array(basename(get_permalink()), $classes)) {
-				    $classes[] = basename(get_permalink());
-			    }
-		    }
+    public static function nice_body_classes()
+    {
+        /*
+         * Add <body> classes
+         */
+        add_filter('body_class', function (array $classes) {
+            /* Add page slug if it doesn't exist */
+            if (is_single() || (is_page() && !is_front_page())) {
+                if (!\in_array(basename(get_permalink()), $classes)) {
+                    $classes[] = basename(get_permalink());
+                }
+            }
 
-		    /** Clean up class names for custom templates */
-		    $classes = array_map(function($class) {
-			    return preg_replace(['/-blade(-php)?$/', '/^page-template-views/'], '', $class);
-		    }, $classes);
+            /** Clean up class names for custom templates */
+            $classes = array_map(function ($class) {
+                return preg_replace(['/-blade(-php)?$/', '/^page-template-views/'], '', $class);
+            }, $classes);
 
-		    return array_filter($classes);
-	    });
-
+            return array_filter($classes);
+        });
     }
-
 }
 
 $fix_wp_config = collect(config('keystone.fix_wp'));

@@ -14,7 +14,7 @@ return [
     |
     */
     'menus' => [
-        'primary_navigation' => 'Primary Navigation'
-    ]
+        'primary_navigation' => 'Primary Navigation',
+    ],
 
 ];
