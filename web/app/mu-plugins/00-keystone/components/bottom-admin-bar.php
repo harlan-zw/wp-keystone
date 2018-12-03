@@ -1,11 +1,11 @@
 <?php
+
 namespace App;
 
-add_action('wp_head', function() {
+add_action('wp_head', function () {
     if (!is_user_logged_in()) {
         return;
-    }
-    ?>
+    } ?>
     <style type="text/css">
         body {
             margin-bottom: 32px !important;

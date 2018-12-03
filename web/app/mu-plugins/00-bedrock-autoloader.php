@@ -6,7 +6,7 @@
  * Version: 1.0.0
  * Author: Roots
  * Author URI: https://roots.io/
- * License: MIT License
+ * License: MIT License.
  */
 
 namespace Roots\Bedrock;
@@ -16,9 +16,10 @@ if (!is_blog_installed()) {
 }
 
 /**
- * Class Autoloader
- * @package Roots\Bedrock
+ * Class Autoloader.
+ *
  * @author Roots
+ *
  * @link https://roots.io/
  */
 class Autoloader
@@ -45,7 +46,7 @@ class Autoloader
     private static $_single;
 
     /**
-     * Create singleton, populate vars, and set WordPress hooks
+     * Create singleton, populate vars, and set WordPress hooks.
      */
     public function __construct()
     {
@@ -54,7 +55,7 @@ class Autoloader
         }
 
         self::$_single = $this;
-        self::$relative_path = '/../' . basename(__DIR__);
+        self::$relative_path = '/../'.basename(__DIR__);
 
         if (is_admin()) {
             add_filter('show_advanced_plugins', [$this, 'showInAdmin'], 0, 2);
@@ -63,9 +64,9 @@ class Autoloader
         $this->loadPlugins();
     }
 
-   /**
-    * Run some checks then autoload our plugins.
-    */
+    /**
+     * Run some checks then autoload our plugins.
+     */
     public function loadPlugins()
     {
         $this->checkCache();
@@ -73,7 +74,7 @@ class Autoloader
         $this->countPlugins();
 
         array_map(static function () {
-            include_once(WPMU_PLUGIN_DIR . '/' . func_get_args()[0]);
+            include_once WPMU_PLUGIN_DIR.'/'.func_get_args()[0];
         }, array_keys(self::$cache['plugins']));
 
         $this->pluginHooks();
@@ -81,10 +82,12 @@ class Autoloader
 
     /**
      * Filter show_advanced_plugins to display the autoloaded plugins.
+     *
      * @param $bool bool Whether to show the advanced plugins for the specified plugin type.
      * @param $type string The plugin type, i.e., `mustuse` or `dropins`
+     *
      * @return bool We return `false` to prevent WordPress from overriding our work
-     * {@internal We add the plugin details ourselves, so we return false to disable the filter.}
+     *              {@internal We add the plugin details ourselves, so we return false to disable the filter.}
      */
     public function showInAdmin($show, $type)
     {
@@ -99,6 +102,7 @@ class Autoloader
 
         self::$auto_plugins = array_map(function ($auto_plugin) {
             $auto_plugin['Name'] .= ' *';
+
             return $auto_plugin;
         }, self::$auto_plugins);
 
@@ -108,7 +112,7 @@ class Autoloader
     }
 
     /**
-     * This sets the cache or calls for an update
+     * This sets the cache or calls for an update.
      */
     private function checkCache()
     {
@@ -116,6 +120,7 @@ class Autoloader
 
         if ($cache === false) {
             $this->updateCache();
+
             return;
         }
 
@@ -129,14 +134,14 @@ class Autoloader
      */
     private function updateCache()
     {
-        require_once(ABSPATH . 'wp-admin/includes/plugin.php');
+        require_once ABSPATH.'wp-admin/includes/plugin.php';
 
         self::$auto_plugins = get_plugins(self::$relative_path);
-        self::$mu_plugins   = get_mu_plugins();
-        $plugins            = array_diff_key(self::$auto_plugins, self::$mu_plugins);
-        $rebuild            = !is_array(self::$cache['plugins']);
-        self::$activated    = ($rebuild) ? $plugins : array_diff_key($plugins, self::$cache['plugins']);
-        self::$cache        = array('plugins' => $plugins, 'count' => $this->countPlugins());
+        self::$mu_plugins = get_mu_plugins();
+        $plugins = array_diff_key(self::$auto_plugins, self::$mu_plugins);
+        $rebuild = !is_array(self::$cache['plugins']);
+        self::$activated = ($rebuild) ? $plugins : array_diff_key($plugins, self::$cache['plugins']);
+        self::$cache = ['plugins' => $plugins, 'count' => $this->countPlugins()];
 
         update_site_option('bedrock_autoloader', self::$cache);
     }
@@ -153,7 +158,7 @@ class Autoloader
         }
 
         foreach (self::$activated as $plugin_file => $plugin_info) {
-            do_action('activate_' . $plugin_file);
+            do_action('activate_'.$plugin_file);
         }
     }
 
@@ -163,7 +168,7 @@ class Autoloader
     private function validatePlugins()
     {
         foreach (self::$cache['plugins'] as $plugin_file => $plugin_info) {
-            if (!file_exists(WPMU_PLUGIN_DIR . '/' . $plugin_file)) {
+            if (!file_exists(WPMU_PLUGIN_DIR.'/'.$plugin_file)) {
                 $this->updateCache();
                 break;
             }
@@ -184,7 +189,7 @@ class Autoloader
             return self::$count;
         }
 
-        $count = count(glob(WPMU_PLUGIN_DIR . '/*/', GLOB_ONLYDIR | GLOB_NOSORT));
+        $count = count(glob(WPMU_PLUGIN_DIR.'/*/', GLOB_ONLYDIR | GLOB_NOSORT));
 
         if (!isset(self::$cache['count']) || $count != self::$cache['count']) {
             self::$count = $count;
