@@ -69,7 +69,9 @@ function load_keystone_directory($directory) {
 
             $include_files = function() use ($files, $hooks_path) {
                 $files->each(function($file) use ($hooks_path) {
-                    include $hooks_path . $file . '.php';
+                    if (file_exists($hooks_path . $file . '.php')) {
+                        include $hooks_path . $file . '.php';
+                    }
                 });
             };
             // clean folder string
@@ -102,7 +104,9 @@ function load_keystone_directory($directory) {
             ->map(function($file) use ($components_path) {
                 return str_replace([ '.php', $components_path ], '', $file);
             })->each(function($file) use ($components_path) {
-                require_once $components_path . "{$file}.php";
+                if (file_exists($components_path . "{$file}.php")) {
+                    require_once $components_path . "{$file}.php";
+                }
             });
     });
 

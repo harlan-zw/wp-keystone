@@ -9,10 +9,6 @@
 </IfModule>
 # END WordPress
 
-# PHP 7.1 FPM
-#<FilesMatch "\.php$">
-#SetHandler "proxy:fcgi://localhost:9001"
-#</FilesMatch>
 
 # ######################################################################
 # # WEB PERFORMANCE                                                    #

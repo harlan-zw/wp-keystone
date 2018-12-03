@@ -14,8 +14,9 @@ web/app/db.php
 # Word Fence logs
 /web/app/wflogs/*
 
-runtime/*
-!runtime/.gitkeep
+/runtime/*
+!/runtime/.gitkeep
+!/runtime/README.md
 
 # WordPress
 web/wp
@@ -63,9 +64,6 @@ wp-cache-config.php
 /logs/
 !/web/
 !/web/app/
-
-# CSV exports
-/runtime/csv-exports
 
 web/dist
 mix-manifest.json

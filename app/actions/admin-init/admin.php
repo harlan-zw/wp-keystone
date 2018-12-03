@@ -1,7 +1,5 @@
 <?php
-
 namespace App;
-
 
 /**
  * Make the admin login screen slightly nicer and branded
@@ -44,11 +42,4 @@ add_action('admin_menu', function() {
 	}
 	// Always hide posts and comments
 	remove_menu_page('edit-comments.php'); // Post Comments
-});
-
-/**
- * Hide ACF
- */
-add_filter('acf/settings/show_admin', function() {
-	return current_user_can('manage_options');
 });

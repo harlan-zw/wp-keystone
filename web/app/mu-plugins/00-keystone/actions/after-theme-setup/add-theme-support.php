@@ -24,10 +24,3 @@ add_theme_support('html5', ['caption', 'comment-form', 'comment-list', 'gallery'
  * @link https://developer.wordpress.org/themes/advanced-topics/customizer-api/#theme-support-in-sidebars
  */
 add_theme_support('customize-selective-refresh-widgets');
-
-/**
- * Use main stylesheet for visual editor
- * @see resources/assets/styles/layouts/_tinymce.scss
- */
-add_editor_style(asset_path('styles/main.css'));
-
