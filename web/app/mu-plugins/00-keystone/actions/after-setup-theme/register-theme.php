@@ -2,4 +2,4 @@
 
 namespace App;
 
-\define('WP_DEFAULT_THEME', config('keystone.theme_name'));
+\defined('WP_DEFAULT_THEME') || define('WP_DEFAULT_THEME', config('keystone.theme_name'));
