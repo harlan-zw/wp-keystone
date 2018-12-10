@@ -11,7 +11,7 @@ function relative_url($input)
     if (!isset($url['host']) || !isset($url['path'])) {
         return $input;
     }
-    $site_url = parse_url(network_home_url());  // falls back to home_url
+    $site_url = parse_url(WP_HOME);  // falls back to home_url
     if (!isset($url['scheme'])) {
         $url['scheme'] = $site_url['scheme'];
     }
