@@ -2,6 +2,15 @@
 
 namespace App;
 
+/**
+ * Compare URL against relative URL
+ */
+function url_compare($url, $rel) {
+    $url = trailingslashit($url);
+    $rel = trailingslashit($rel);
+    return ((strcasecmp($url, $rel) === 0) || relative_url($url) == $rel);
+}
+
 function relative_url($input)
 {
     if (is_feed()) {
@@ -41,7 +50,7 @@ collect([
     'the_permalink',
     'wp_list_pages',
     'wp_list_categories',
-    'wp_get_attachment_url',
+//    'wp_get_attachment_url',
     'the_content_more_link',
     'the_tags',
     'get_pagenum_link',
