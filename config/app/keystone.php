@@ -65,7 +65,7 @@ return [
             | try and load in a non minified version if we're on development.
             |
             */
-            'jquery_migrate_cdn_url' => '//code.jquery.com/jquery-3.2.1.min.js',
+            'jquery_migrate_cdn_url' => '//code.jquery.com/jquery-migrate-3.2.1.min.js',
         ],
 
         /*
