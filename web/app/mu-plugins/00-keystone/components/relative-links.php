@@ -3,12 +3,14 @@
 namespace App;
 
 /**
- * Compare URL against relative URL
+ * Compare URL against relative URL.
  */
-function url_compare($url, $rel) {
+function url_compare($url, $rel)
+{
     $url = trailingslashit($url);
     $rel = trailingslashit($rel);
-    return ((strcasecmp($url, $rel) === 0) || relative_url($url) == $rel);
+
+    return (strcasecmp($url, $rel) === 0) || relative_url($url) == $rel;
 }
 
 function relative_url($input)
