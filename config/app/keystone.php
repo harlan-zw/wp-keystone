@@ -24,7 +24,7 @@ return [
 
     'features' => [
         'disable_comments' => true,
-        'bottom_admin_bar' => true
+        'bottom_admin_bar' => true,
     ],
 
     'fix_wp' => [

@@ -23,4 +23,3 @@ add_action('login_enqueue_scripts', function () {
     </style>
     <?php
 });
-

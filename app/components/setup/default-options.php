@@ -1,4 +1,5 @@
 <?php
+
 namespace App;
 
 // links will be slugs e.g. /my-post-name/

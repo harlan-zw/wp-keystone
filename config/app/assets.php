@@ -68,5 +68,5 @@ return [
     | Modify page output to set them up to be lazy loaded
     |
     */
-    'lazy_load_images' => true
+    'lazy_load_images' => true,
 ];

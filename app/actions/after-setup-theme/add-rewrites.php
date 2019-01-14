@@ -2,7 +2,7 @@
 
 namespace App;
 
-/**
+/*
  * Register the rewrite rules. This configuration is loaded from `config/rewrites.php`.
  */
 

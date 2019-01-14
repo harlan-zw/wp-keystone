@@ -2,7 +2,7 @@
 
 namespace App;
 
-/**
+/*
  * This sets the default theme to be keystone
  */
 
