@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "4f416744b57e264222aa7fed2e024642",
+    "content-hash": "1d5ed6e55addb86eb37172c2759bc80a",
     "packages": [
         {
             "name": "brainmaestro/composer-git-hooks",
@@ -1628,26 +1628,6 @@
                 "standards"
             ],
             "time": "2018-12-19T23:57:18+00:00"
-        },
-        {
-            "name": "wpackagist-plugin/easy-development",
-            "version": "1.0.6",
-            "source": {
-                "type": "svn",
-                "url": "https://plugins.svn.wordpress.org/easy-development/",
-                "reference": "tags/1.0.6"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/easy-development.1.0.6.zip",
-                "reference": null,
-                "shasum": null
-            },
-            "require": {
-                "composer/installers": "~1.0"
-            },
-            "type": "wordpress-plugin",
-            "homepage": "https://wordpress.org/plugins/easy-development/"
         },
         {
             "name": "wpackagist-plugin/query-monitor",
