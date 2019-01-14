@@ -2,24 +2,25 @@
 
 namespace App;
 
-/**
+/*
  * Setup templating to use blade files loaded from our own view directory
  */
 
-add_filter('theme_file_path', function() {
+add_filter('theme_file_path', function () {
     return get_view_path();
 }, PHP_INT_MAX);
-add_filter('template_directory', function() {
+add_filter('template_directory', function () {
     return get_view_path();
 }, PHP_INT_MAX);
 
 /**
- * Get the path to the view files
+ * Get the path to the view files.
+ *
  * @return string
  */
 function get_view_path()
 {
-    return ROOT_DIR . '/resources/views';
+    return ROOT_DIR.'/resources/views';
 }
 
 /**
@@ -30,6 +31,7 @@ function get_view_path()
 function locate_template($templates)
 {
     $templates = filter_templates($templates);
+
     return \locate_template($templates);
 }
 

@@ -1,4 +1,5 @@
 <?php
+
 namespace App;
 
 // allow script deferring to be toggled off

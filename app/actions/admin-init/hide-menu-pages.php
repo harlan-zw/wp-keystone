@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Hide the menus that aren't needed for the existing User
+ * Hide the menus that aren't needed for the existing User.
  **/
 add_action('admin_menu', function () {
     // If not super admin - hide pages they don't need
