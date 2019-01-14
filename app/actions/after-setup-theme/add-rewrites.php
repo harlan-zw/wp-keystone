@@ -2,9 +2,10 @@
 
 namespace App;
 
-/*
- * Anything in the rewrites config is registered
+/**
+ * Register the rewrite rules. This configuration is loaded from `config/rewrites.php`.
  */
+
 collect(config()->get('rewrites.rules'))->each(function ($route, $regex) {
     add_rewrite_rule($regex, $route, 'top');
 });

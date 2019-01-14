@@ -58,6 +58,15 @@ return [
     | has finished loading
     |
     */
-
     'defer_scripts' => true,
+
+    /*
+    |--------------------------------------------------------------------------
+    | Lazy Load Images
+    |--------------------------------------------------------------------------
+    |
+    | Modify page output to set them up to be lazy loaded
+    |
+    */
+    'lazy_load_images' => true
 ];

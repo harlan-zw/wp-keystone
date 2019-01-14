@@ -74,6 +74,8 @@ function load_keystone_directory($directory)
         ->each(function (Collection $files, $folder) use ($hooks_path) {
             // need to sort it so naturally ordered files come first
             $files = $files->sort();
+            // clean folder string
+            $action_name = str_replace('-', '_', ltrim($folder, '/'));
 
             $include_files = function () use ($files, $hooks_path) {
                 $files->each(function ($file) use ($hooks_path) {
@@ -82,15 +84,13 @@ function load_keystone_directory($directory)
                     }
                 });
             };
-            // clean folder string
-            $action_name = str_replace('-', '_', ltrim($folder, '/'));
 
+            // don't load anything just in the root
             if (empty($action_name)) {
                 // always just load them in
-                $include_files();
-
                 return;
             }
+
             // acf uses namespaced actions
             if (starts_with($action_name, 'acf')) {
                 $action_name = str_replace('_', '/', $action_name);

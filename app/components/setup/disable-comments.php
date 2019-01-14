@@ -2,7 +2,16 @@
 
 namespace App;
 
-// Note: If you want to use comments then delete this file
+/*
+ * Removes the comments feature from WordPress. Most websites will not use WordPress's default comment system since it kind of sucks.
+ * Remove this file if you'd like comments or disable via `config/keystone.php`
+ */
+
+// allow it to be turned off via config
+$disable_comments = config('keystone.features.disable_comments');
+if (!$disable_comments) {
+    return;
+}
 
 // hide from the menu
 add_action('admin_menu', function () {

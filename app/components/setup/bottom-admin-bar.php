@@ -2,6 +2,16 @@
 
 namespace App;
 
+/*
+ * Moves the wordpress admin bar to the bottom of the screen so it doesn't interfere with top navigation
+ */
+
+// allow it to be turned off via config
+$bottom_admin_bar = config('keystone.features.bottom_admin_bar');
+if (!$bottom_admin_bar) {
+    return;
+}
+
 add_action('wp_head', function () {
     if (!is_user_logged_in()) {
         return;

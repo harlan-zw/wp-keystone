@@ -20,7 +20,12 @@ return [
     | The version of Keystone being used
     |
     */
-    'version' => '1.0',
+    'version' => '0.6',
+
+    'features' => [
+        'disable_comments' => true,
+        'bottom_admin_bar' => true
+    ],
 
     'fix_wp' => [
         /*

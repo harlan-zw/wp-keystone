@@ -4,6 +4,10 @@ namespace App;
 
 use Roots\Sage\Assets\JsonManifest;
 
+/**
+ * Setup utilities to find versioned assets
+ */
+
 /*
  * Add JsonManifest to Sage container
  */

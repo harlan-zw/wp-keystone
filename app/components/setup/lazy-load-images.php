@@ -1,4 +1,11 @@
 <?php
+namespace App;
+
+// allow script deferring to be toggled off
+$lazy_load_images = config('assets.lazy_load_images');
+if (!$lazy_load_images) {
+    return;
+}
 
 $do_lazy_load = true;
 

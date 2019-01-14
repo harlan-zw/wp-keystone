@@ -13,5 +13,4 @@ return [
     |
     */
     'use_relative_links' => true,
-
 ];

@@ -7,7 +7,7 @@ use Roots\Sage\Template\Blade;
 use Roots\Sage\Template\BladeProvider;
 
 /*
- * Add Blade to Sage container
+ * Add Blade to container
  */
 app()->singleton('blade', function (Container $app) {
     $cachePath = config('view.compiled');
